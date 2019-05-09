@@ -1,0 +1,145 @@
+
+.item.page.active{
+	background: rgb(232,232,232);
+}
+
+.clickable{
+	cursor: pointer;
+}
+
+.row.arrow{
+	margin-left:5px;
+}
+
+.card.active{
+	border-style:solid !important;
+	border-width: 4px !important;
+	border-color: rgb(0,176,240) !important;
+}
+
+.step.title{
+	margin-bottom:10px;
+}
+
+.step.title.active{
+	font-weight: bold;
+}
+
+.row.step{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.ui.modal{
+	width :500px;
+	/*margin-top: -300px;*/
+	/*margin-left :-250px;*/
+}
+
+tr{
+	cursor: pointer;
+}
+
+
+select option:disabled {
+	display: none;
+}
+
+
+form .ui.input:not(:first-child){
+	margin-top: 20px;
+}
+
+.error{
+	color: red;
+}
+
+.success{
+	color: green;
+}
+
+.logo-1{
+	position  :absolute;
+	top       :1em;
+	left      :1em;
+	width     :12em;
+}
+
+.header-logo{
+	height     :60px;
+	margin-top: 5px;
+}
+
+.header-logo img{
+	height   :45px;
+}
+
+.header-main-content{
+	display:flex;
+	flex-direction: row-reverse;
+	width: 100%;
+	text-align: right;
+}
+
+#header{
+	height                :60px;
+	border-bottom         :1px solid #CCC;
+	position              :fixed;
+	width                 :100%;
+	background            :white;
+  top                   :0px;
+	z-index          :2;
+}
+
+.grid-wrapper{
+	margin-left :20%;
+	margin-right :10%;
+	height: 60px;
+}
+
+.grid-content{
+	display: flex;
+	height: 60px; /* hauteur du parent */
+  line-height: 60px; /* hauteur de ligne (identique) */
+  white-space: nowrap;
+}
+
+h1 {
+	margin-bottom  :50px !important;
+	font-size: 3em !important;
+}
+
+h2{
+	border-bottom   :1px solid #CCC  !important;
+	padding-bottom  :5px !important;
+	margin-bottom   :30px !important;
+}
+
+#dashboard {
+	padding-right       :10%;
+	padding-left        :10%;
+  padding-top   :30px;
+  /*background-color: rgb(250,250,250);*/
+}
+
+.main-content{
+	margin-top: 60px;
+}
+
+.ui.container {
+	margin-left    :2em  !important;
+}
+
+.ui.celled.table {
+	text-align: right;
+  margin-right: 0px;
+  margin-left: auto;
+}
+
+
+.ui.input{
+	width  :100%;
+	box-sizing: border-box;
+     -webkit-box-sizing:border-box;
+     -moz-box-sizing: border-box;
+}
