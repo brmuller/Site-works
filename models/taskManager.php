@@ -5,6 +5,36 @@ require_once("Manager.php");
 class taskManager extends Manager
 {
 
+  //attach file to task
+  public function addTaskFile($task_id){
+
+    $err="";
+    $file="";
+    // Testons si le fichier n'est pas trop gros
+    if ($_FILES['myfile']['size'] <= MAX_FILE_SIZE)
+    {
+      // On peut valider le fichier et le stocker définitivement
+      if (!is_dir('C:/wamp64/www/workflow/uploads/'.$taskid.'/')) {
+          mkdir('C:/wamp64/www/workflow/uploads/'.$taskid.'/', 0777, true);
+      }
+      $file='C:/wamp64/www/workflow/uploads/'.$taskid.'/'. basename($_FILES['myfile']['name']);
+      move_uploaded_file($_FILES['myfile']['tmp_name'], $file);
+
+    }else{
+      $err="fichier trop volumineux";
+    }
+
+    $file_add=array(
+      'error'=>$err,
+      'file'=>$file
+    );
+
+    return $file_add;
+  }
+
+
+
+
   //get list of files attached to task
   public function getTaskFiles($task_id){
 

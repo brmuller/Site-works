@@ -626,12 +626,12 @@ $( document ).ready(function() {
     }
 
 
-    //attach documents
+    //attach documents to task
     $('#but-doc-send').click(function () {
       var form = $('#form-attachments')[0];
 	    var formData = new FormData(form);
       $.ajax({
-        url : '/workflow/savefile.php',
+        url : '/workflow/ajax.php',
         type : 'POST', // Le type de la requête HTTP, ici devenu POST
         data : formData, // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType : 'json',
@@ -639,13 +639,13 @@ $( document ).ready(function() {
         cache: false,
         processData:false,
         success : function(data, statut){ // success est toujours en place, bien sûr !
-          if (data.error==""){
+          if (data.file['error']==""){
             $('#err-attachment').empty();
-            var filename = data.file.split('/').pop();
-            var new_file=$('<li><a href="'+ data.file +'">' + filename + '</a></li>');
+            var filename = data.file['file'].split('/').pop();
+            var new_file=$('<li><a href="'+ data.file['file'] +'">' + filename + '</a></li>');
             $('#attachments-list').append(new_file);
           }else{
-            $('#err-attachment').text(response.error);
+            $('#err-attachment').text(data.file['error']);
           }
         },
         error : function(resultat, statut, erreur){
@@ -654,6 +654,7 @@ $( document ).ready(function() {
         }
       });
     });
+    
 
     //change status
     $('#flow-steps .clickable').click(function () {

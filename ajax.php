@@ -90,4 +90,12 @@
 
   }
 
+  //File Manager
+  if (isset($_FILES['myfile']) AND isset($_POST['taskid']) AND $_FILES['myfile']['error'] == 0)
+  {
+    $task_id=$_POST['taskid'];
+    $response=$task_manager->addTaskFile($task_id);
+    $response_json=array('file'=>$response);
+  }
+
   echo json_encode($response_json);
