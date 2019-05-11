@@ -6,30 +6,42 @@
   	exit;
   }
 
-  require("models/config.php");
-  require("models/functions.php");
+  function loadClass($class)
+  {
+    require 'models/' . $class . '.php'; // On inclut la classe correspondante au paramètre passé.
+  }
+
+  spl_autoload_register('loadClass');
+
+  $user_manager=new userManager();
+  $task_manager=new taskManager();
+  $comment_manager=new commentManager();
+  $team_manager=new teamManager();
+  $flow_manager= new flowManager();
 
 
-  if (isset($_POST['create-task-team'])){createTask();}
-  if (isset($_POST['team-name'])){createTeam();}
-  if (isset($_POST['flow-name'])){createFlow();}
-  if (isset($_POST['team-name-join'])){joinTeam();}
-  if (isset($_POST['modify-task-title'])){updateTask();}
+  //handle POSTS on page
+  if (isset($_POST['create-task-team'])){$task_manager->createTask();}
+  if (isset($_POST['team-name'])){$team_manager->createTeam();}
+  if (isset($_POST['flow-name'])){$flow_manager->createFlow();}
+  if (isset($_POST['team-name-join'])){$team_manager->joinTeam();}
+  if (isset($_POST['modify-task-title'])){$task_manager->updateTask();}
 
 
+  //handle GETS on page
   if (isset($_GET['type'])){
     $type=$_GET['type'];
     switch ($type) {
       case "updatetask":
         if (isset($_GET['id'])){
           $task_id=$_GET['id'];
-          $task_data=getTaskData($task_id);
-          $comments=getTaskComments($task_id);
+          $task_data=$task_manager->getTaskData($task_id);
+          $comments=$comment_manager->getTaskComments($task_id);
           $flow_id=$task_data['flow']['id'];
-          $status_list=getStatusList($flow_id);
+          $status_list=$flow_manager->getStatusList($flow_id);
           $team_id=$task_data['team']['id'];
-          $members_list=getTeamMembers($team_id);
-          $task_uploads=getTaskUploads($task_id);
+          $members_list=$team_manager->getTeamMembers($team_id);
+          $task_uploads=$task_manager->getTaskFiles($task_id);
           $update_task=true;
         }
         break;
@@ -51,15 +63,15 @@
         break;
 
       case "logout":
-        deconnect();
+        $user_manager->deconnect();
         break;
     }
   }
 
   if (isset($_SESSION['team'])){
     $team=$_SESSION['team'];
-    $tasks=getTasksList($team);
-    $members_count=count(getTeamMembers($team));
+    $tasks=$task_manager->getTasksList($team);
+    $members_count=count($team_manager->getTeamMembers($team));
     $tasks_list=$tasks['list'];
     $nb_rows=count($tasks_list);
     $nb_pages=ceil($tasks['rows_count']/8);
@@ -68,8 +80,8 @@
 
   $strname=ucfirst(strtolower($_SESSION['firstname']));
   $avatar=$_SESSION['avatar'];
-  $teams=getTeams();
-  $flows=getUserFlows();
+  $teams=$team_manager->getTeams();
+  $flows=$flow_manager->getUserFlows();
 
 ?>
 

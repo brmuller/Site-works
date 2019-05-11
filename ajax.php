@@ -3,8 +3,18 @@
   session_start();
 
 
-  require("models/config.php");
-  require("models/functions.php");
+  function loadClass($class)
+  {
+    require 'models/' . $class . '.php'; // On inclut la classe correspondante au paramètre passé.
+  }
+
+  spl_autoload_register('loadClass');
+
+  $user_manager=new userManager();
+  $task_manager=new taskManager();
+  $comment_manager=new commentManager();
+  $team_manager=new teamManager();
+  $flow_manager= new flowManager();
 
 
 
@@ -17,59 +27,59 @@
 
     switch ($action) {
       case "check_user":
-          $response=checkUser($data->email,$data->password);
+          $response=$user_manager->checkUser($data->email,$data->password);
           $response_json=array('isRecorded'=>$response);
           break;
       case "check_email":
-          $response=checkEmail($data->email);
+          $response=$user_manager->checkEmail($data->email);
           $response_json=array('isRecorded'=>$response);
           break;
       case "checkflowname":
-          $response=checkFlowExists($data->team_id,$data->flow_name);
+          $response=$flow_manager->checkFlowExists($data->team_id,$data->flow_name);
           $response_json=array('flowExists'=>$response);
           break;
       case "checkteamname":
-          $response=checkTeamExists($data->team_name);
+          $response=$team_manager->checkTeamExists($data->team_name);
           $response_json=array('teamExists'=>$response);
           break;
       case "check_public_team":
-          $response=checkPublicTeam($data->team_name);
+          $response=$team_manager->checkPublicTeam($data->team_name);
           $response_json=array('isPublic'=>$response);
           break;
       case "check_user_in_team":
-          $response=checkUserInTeam($data->team_name,$user_id);
+          $response=$team_manager->checkUserInTeam($data->team_name,$user_id);
           $response_json=array('isInTeam'=>$response);
           break;
       case "get_flows_list":
-          $response=getTeamFlows($data->team_id);
+          $response=$flow_manager->getTeamFlows($data->team_id);
           $response_json=array('flows'=>$response);
           break;
       case "get_team_members":
-          $response=getTeamMembers($data->team_id);
+          $response=$team_manager->getTeamMembers($data->team_id);
           $response_json=array('users'=>$response);
           break;
       case "get_tasks_list":
-          $response=getTasksList($data->team_id,$data->filter);
+          $response=$task_manager->getTasksList($data->team_id,$data->filter);
           $response_json=array('tasks'=>$response);
           break;
       case "get_table_page":
-          $response=getTasksList($data->team_id,$data->filter,$data->page);
+          $response=$task_manager->getTasksList($data->team_id,$data->filter,$data->page);
           $response_json=array('tasks'=>$response);
           break;
       case "delete_task":
-          $response=deleteTask($data->task_id);
+          $response=$task_manager->deleteTask($data->task_id);
           $response_json=array('isDeleted'=>$response);
           break;
       case "close_task":
-          $response=closeTask($data->task_id);
+          $response=$task_manager->closeTask($data->task_id);
           $response_json=array('isClosed'=>$response);
           break;
       case "add_comment":
-          $response=addComment($data->task_id,$data->comment,$user_id);
+          $response=$comment_manager->addComment($data->task_id,$data->comment,$user_id);
           $response_json=array('isAdded'=>$response);
           break;
       case "get_user_data":
-          $response=getUserData($user_id);
+          $response=$user_manager->getUserData($user_id);
           $response_json=array('user'=>$response);
           break;
       case "set_current_team":
@@ -81,5 +91,3 @@
   }
 
   echo json_encode($response_json);
-
-?>
