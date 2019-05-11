@@ -7,17 +7,23 @@
 		exit;
 	}
 
-	require("models/config.php");
-	require("models/functions.php");
+	function loadClass($class)
+  {
+    require 'models/' . $class . '.php'; // On inclut la classe correspondante au paramètre passé.
+  }
+
+  spl_autoload_register('loadClass');
+  $user_manager=new userManager();
+
 
 	if (isset($_POST['email_co'])){
-		connect(
+		$user_manager->connect(
 			$_POST['email_co'],
 			$_POST['password_co']
 		);
 	}
 	if (isset($_POST['firstname'])){
-		register(
+		$user_manager->register(
 			$_POST['firstname'],
 			$_POST['lastname'],
 			$_POST['email'],
