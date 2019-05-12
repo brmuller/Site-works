@@ -3,12 +3,9 @@
   session_start();
 
 
-  function loadClass($class)
-  {
-    require 'models/' . $class . '.php'; // On inclut la classe correspondante au paramètre passé.
-  }
-
-  spl_autoload_register('loadClass');
+  spl_autoload_register(function ($class) {
+    include 'models/' . $class . '.php';
+  });
 
   $user_manager=new userManager();
   $task_manager=new taskManager();
@@ -90,8 +87,8 @@
 
   }
 
-  //File Manager
-  if (isset($_FILES['myfile']) AND isset($_POST['taskid']) AND $_FILES['myfile']['error'] == 0)
+  //attach file to task
+  if (isset($_FILES['myfile']) AND isset($_POST['taskid']))
   {
     $task_id=$_POST['taskid'];
     $response=$task_manager->addTaskFile($task_id);

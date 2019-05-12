@@ -9,5 +9,6 @@
   //Default DateTimeZone
   date_default_timezone_set('Europe/Paris');
 
-  //uploaded file max size
+
+  //max size of uploaded files (In Bytes)
   define('MAX_FILE_SIZE', 1000000);

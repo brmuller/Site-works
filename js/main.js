@@ -426,61 +426,7 @@ $( document ).ready(function() {
     //update tasks table after team selection change
     $('#team-selection').on('change', function() {
       var team_id=this.value;
-      var str_filter=$("#task-filter").val();
-      $('#task-table-container').empty();
-      $('#team-stats').empty();
-
-      if (team_id != ''){
-
-        var data = {
-          "action": "get_tasks_list" ,
-          "team_id": team_id,
-          "filter": str_filter
-        };
-
-        $.ajax({
-          url : '/workflow/ajax.php',
-          type : 'POST', // Le type de la requête HTTP, ici devenu POST
-          data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
-          dataType : 'json',
-          success : function(data_tasks, statut){ // success est toujours en place, bien sûr !
-            var data = {
-              "action": "set_current_team" ,
-              "team_id": team_id
-            };
-
-            $.ajax({
-              url : '/workflow/ajax.php',
-              type : 'POST', // Le type de la requête HTTP, ici devenu POST
-              data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
-              dataType : 'json',
-              success : function(){ // success est toujours en place, bien sûr !
-                if (data_tasks.tasks['list'].length==0){
-                  $('#task-table-container').append($("<span>Il n'y a pas de tâches pour cette équipe.</span>"));
-                }else{
-                  var table=buildTaskTable(data_tasks.tasks);
-                  $('#task-table-container').append(table);
-                  var stats=buildTeamStats(data_tasks.tasks['list'].length,6);
-                  $('#team-stats').append(stats);
-                  $(".ui.rating").rating();
-                }
-              },
-              error : function(resultat, statut, erreur){
-                alert(statut);
-                alert(erreur);
-              }
-            });
-
-          },
-          error : function(resultat, statut, erreur){
-            alert(statut);
-            alert(erreur);
-          }
-        });
-
-      }else{
-        $('#task-table-container').append($('<span>Sélectionnez une équipe pour afficher la liste des tâches.</span>'));
-      }
+      window.location.replace("/workflow/dashboard.php?type=team&id="+team_id);
     });
 
     function buildTeamStats(nbTasks,nbMembers){
@@ -649,12 +595,13 @@ $( document ).ready(function() {
           }
         },
         error : function(resultat, statut, erreur){
+          alert(resultat);
           alert(statut);
           alert(erreur);
         }
       });
     });
-    
+
 
     //change status
     $('#flow-steps .clickable').click(function () {

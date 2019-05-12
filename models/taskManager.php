@@ -11,18 +11,38 @@ class taskManager extends Manager
     $err="";
     $file="";
     // Testons si le fichier n'est pas trop gros
-    if ($_FILES['myfile']['size'] <= MAX_FILE_SIZE)
-    {
-      // On peut valider le fichier et le stocker définitivement
-      if (!is_dir('C:/wamp64/www/workflow/uploads/'.$taskid.'/')) {
-          mkdir('C:/wamp64/www/workflow/uploads/'.$taskid.'/', 0777, true);
-      }
-      $file='C:/wamp64/www/workflow/uploads/'.$taskid.'/'. basename($_FILES['myfile']['name']);
-      move_uploaded_file($_FILES['myfile']['tmp_name'], $file);
+    if ($_FILES['myfile']['error'] == 0){
+      if ($_FILES['myfile']['size'] <= MAX_FILE_SIZE)
+      {
+        // On peut valider le fichier et le stocker définitivement
+        if (!is_dir('C:/wamp64/www/workflow/uploads/'.$task_id.'/')) {
+            mkdir('C:/wamp64/www/workflow/uploads/'.$task_id.'/', 0777, true);
+        }
+        //move file to 'uploads' repository
+        $file='C:/wamp64/www/workflow/uploads/'.$task_id.'/'. basename($_FILES['myfile']['name']);
+        move_uploaded_file($_FILES['myfile']['tmp_name'], $file);
 
+        //retrieve the task team id
+        $bdd = $this->connectDB();
+        $req=$bdd->prepare('SELECT team from task WHERE id= ?');
+        $req->execute(array($task_id));
+
+        if ($req->rowCount()){
+          $row = $req->fetch();
+          $team=$row['team'];
+        }
+
+        //update history
+        $history_manager=new historyManager();
+        $history_manager->addEvent($team,'attach_file',$task_id);
+
+      }else{
+        $err="fichier trop volumineux";
+      }
     }else{
-      $err="fichier trop volumineux";
+      $err="erreur lors de l'envoi du fichier";
     }
+
 
     $file_add=array(
       'error'=>$err,
@@ -94,6 +114,10 @@ class taskManager extends Manager
     //insert record in table task
 		$inserttask=$bdd->prepare('INSERT INTO task(title,description,creator,creation_date,assignee,last_modifier,last_modification_date,target_delivery_date,team,flow,status,priority) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)');
 		$inserttask->execute(array($title,$description,$creator,$creation_date,$assignee,$last_modifier,$last_modif_date,$target_date,$team,$flow,$status,$priority));
+
+    //update history
+    $history_manager=new historyManager();
+    $history_manager->addEvent($team,'task_creation',$bdd->lastInsertId());
 
     $bdd=null;
   }
@@ -236,10 +260,10 @@ class taskManager extends Manager
 
   //update task data
   public function updateTask(){
-    date_default_timezone_set('Europe/Paris');
+    //date_default_timezone_set('Europe/Paris');
     $bdd = $this->connectDB();
 		//faire les contrôles de saisie en JS
-    $taskid=htmlspecialchars($_POST['modify-task-id']);
+    $task_id=htmlspecialchars($_POST['modify-task-id']);
     $status=htmlspecialchars($_POST['modify-task-status']);
     $priority=htmlspecialchars($_POST['modify-task-priority']);
     $title=htmlspecialchars($_POST['modify-task-title']);
@@ -256,7 +280,20 @@ class taskManager extends Manager
 
     //insert record in table task
 		$inserttask=$bdd->prepare('UPDATE task SET title=?, description=?, assignee=?, last_modifier=?, last_modification_date=?, target_delivery_date=?, status=?, priority=? WHERE id=?');
-		$inserttask->execute(array($title,$description,$assignee,$last_modifier,$last_modif_date,$target_date,$status,$priority,$taskid));
+		$inserttask->execute(array($title,$description,$assignee,$last_modifier,$last_modif_date,$target_date,$status,$priority,$task_id));
+
+    //retrieve the task team id
+    $req=$bdd->prepare('SELECT team from task WHERE id= ?');
+    $req->execute(array($task_id));
+
+    if ($req->rowCount()){
+      $row = $req->fetch();
+      $team=$row['team'];
+    }
+
+    //update history
+    $history_manager=new historyManager();
+    $history_manager->addEvent($team,'task_update',$task_id);
 
     $bdd=null;
 

@@ -159,6 +159,10 @@ class teamManager extends Manager
 		$insertteamuser=$bdd->prepare('INSERT INTO user_team(id_user,id_team) VALUES(?,?)');
 		$insertteamuser->execute(array($user_id,$team_id));
 
+    //update history
+    $history_manager=new historyManager();
+    $history_manager->addEvent($team_id,'team_join');
+
     $bdd=null;
 	}
 

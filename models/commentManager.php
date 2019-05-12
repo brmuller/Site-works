@@ -17,6 +17,19 @@ class commentManager extends Manager
 		$insertcomment=$bdd->prepare('INSERT INTO comment(comment,task_id,creator,creation_date) VALUES(?,?,?,?)');
 		$insertcomment->execute(array($comment,$task_id,$creator_id,$creation_date));
 
+    //retrieve the task team id
+    $req=$bdd->prepare('SELECT team from task WHERE id= ?');
+    $req->execute(array($task_id));
+
+    if ($req->rowCount()){
+      $row = $req->fetch();
+      $team=$row['team'];
+    }
+
+    //update history
+    $history_manager=new historyManager();
+    $history_manager->addEvent($team,'comment_add',$task_id);
+
     $bdd=null;
     return true;
 
