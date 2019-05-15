@@ -15,6 +15,7 @@
 		  <link rel="stylesheet" type="text/css" href="/workflow/css/main.css" />
     </head>
     <body>
+
       <!-- Modals -->
       <?php if (isset($_SESSION['id'])){
         if (isset($new_team) && $new_team){include("views/modalCreateTeam.php");}
@@ -27,10 +28,12 @@
         if (isset($signup)){require("views/modalRegistration.php");}
       } ?>
 
-      <!--page header -->
+
+      <!-- Header -->
       <?php require("views/header.php"); ?>
 
-      <!-- Page main content -->
+
+      <!-- Main content -->
   		<div <?php if(isset($_SESSION['id'])){echo 'id="dashboard"';} ?> class="main-content">
         <?php if (isset($_SESSION['id'])){
           require("views/dashboardView.php");
@@ -38,5 +41,6 @@
           echo '<img src="/workflow/static/images/whiteboard-4054377_1920.jpg"/ style="width :100%;">';
         } ?>
   		</div>
+
     </body>
 </html>
