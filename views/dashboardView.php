@@ -96,6 +96,7 @@
     <div class="ui grid"  id="team-stats" style="margin-top:10px;">
       <div class="twelve wide column">
         <h3 class="ui dividing header">Tâches</h3>
+        <a href="/workflow/dashboard.php?type=exporttasks&id=<?= $team ?>" class="item"><i class="file excel icon"></i></a>
       </div>
       <div class="four wide column">
         <div class="ui tiny statistics" style="float:right;">

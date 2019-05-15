@@ -54,6 +54,43 @@ class taskManager extends Manager
 
 
 
+  //export tasks to CSV
+  public function exportTasksCSV($team_id){
+
+    $filename = $team_id.'-'.date('d.m.Y').'.csv';
+
+    //retrieve $tasks
+    $tasks=$this->getTasksList($team_id);
+    $tasks_list=$tasks['list'];
+
+    $list=array();
+
+    // Append results to array
+    $headers=false;
+    foreach ($tasks_list as &$line) {
+      if (!$headers){
+        array_push($list, array_keys($line));
+        $headers=true;
+      }
+      array_push($list, array_values($line));
+    }
+
+
+    // Output array into CSV file
+    $fp = fopen('php://output', 'w');
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="'.$filename.'"');
+    foreach ($list as $ferow) {
+        fputcsv($fp, $ferow,";");
+        //fputcsv($file,explode(';',$customerInfo), ";");
+    }
+
+    //Close the file pointer.
+    fclose($fp);
+    die();
+  }
+
+
 
   //get list of files attached to task
   public function getTaskFiles($task_id){
@@ -223,13 +260,7 @@ class taskManager extends Manager
 
     if ($req->rowCount()){
       while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
-        $tasks_list[]=array(
-          "id" => $row['id'],
-          "title" => $row['title'],
-          "fullname" => $row['fullname'],
-          "status" => $row['status'],
-          "priority" => $row['priority']
-        );
+        $tasks_list[]=$row;
       }
     }
 

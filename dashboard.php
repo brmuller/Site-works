@@ -71,6 +71,10 @@
       case "logout":
         $user_manager->deconnect();
         break;
+
+      case "exporttasks":
+        $team_id=$_GET['id'];
+        $task_manager->exportTasksCSV($team_id);
     }
   }
 
