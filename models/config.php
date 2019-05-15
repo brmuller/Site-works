@@ -9,6 +9,5 @@
   //Default DateTimeZone
   date_default_timezone_set('Europe/Paris');
 
-
-  //max size of uploaded files (In Bytes)
-  define('MAX_FILE_SIZE', 1000000);
+  define('MAX_FILE_SIZE', 1000000); //max size of uploaded files (In Bytes)
+  define('REPOSITORY_PATH','C:/wamp64/www/workflow/uploads'); //folder path of the files repository

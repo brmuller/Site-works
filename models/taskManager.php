@@ -15,11 +15,11 @@ class taskManager extends Manager
       if ($_FILES['myfile']['size'] <= MAX_FILE_SIZE)
       {
         // On peut valider le fichier et le stocker définitivement
-        if (!is_dir('C:/wamp64/www/workflow/uploads/'.$task_id.'/')) {
-            mkdir('C:/wamp64/www/workflow/uploads/'.$task_id.'/', 0777, true);
+        if (!is_dir(REPOSITORY_PATH . '/'. $task_id .'/')) {
+            mkdir(REPOSITORY_PATH . '/'. $task_id .'/', 0777, true);
         }
         //move file to 'uploads' repository
-        $file='C:/wamp64/www/workflow/uploads/'.$task_id.'/'. basename($_FILES['myfile']['name']);
+        $file=REPOSITORY_PATH . '/'. $task_id .'/'. basename($_FILES['myfile']['name']);
         move_uploaded_file($_FILES['myfile']['tmp_name'], $file);
 
         //retrieve the task team id
@@ -59,7 +59,7 @@ class taskManager extends Manager
   public function getTaskFiles($task_id){
 
     $files=array();
-    $folder_path='C:/wamp64/www/workflow/uploads/'.$task_id.'/';
+    $folder_path=REPOSITORY_PATH . '/'. $task_id .'/';
     if (is_dir($folder_path)) {
       if($folder = opendir($folder_path)){
         while(false !== ($file = readdir($folder))){
