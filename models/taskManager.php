@@ -216,7 +216,7 @@ class taskManager extends Manager
   public function getTasksList($team_id, $filter="", $page=1){
     $bdd = $this->connectDB();
 
-    $offset_p=($page-1)*8;
+    $offset_p=($page-1)*MAX_TASK_ROWS;
     $tasks=array();
 
     //1) get results Count
@@ -246,13 +246,13 @@ class taskManager extends Manager
     if($filter==""){
       $str_query='SELECT task.id AS id, task.title AS title, user.fullname AS fullname,
         task.status as status, task.priority as priority FROM task, user WHERE task.assignee=user.id AND
-        team= ? AND is_closed=0 ORDER BY last_modification_date DESC limit 8 OFFSET '.$offset_p;
+        team= ? AND is_closed=0 ORDER BY last_modification_date DESC limit '.MAX_TASK_ROWS.' OFFSET '.$offset_p;
 
     }else{
       $str_query='SELECT task.id AS id, task.title AS title, user.fullname AS fullname,
         task.status as status, task.priority as priority FROM task, user WHERE task.assignee=user.id AND
         team= ? AND is_closed=0 AND (title LIKE "%"?"%" OR user.fullname LIKE "%"?"%" OR status LIKE "%"?"%")
-        ORDER BY last_modification_date DESC limit 8 OFFSET '.$offset_p;
+        ORDER BY last_modification_date DESC limit '.MAX_TASK_ROWS.' OFFSET '.$offset_p;
 
     }
     $req=$bdd->prepare($str_query);

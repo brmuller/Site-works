@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" >
     <head>
-      <title><?php if(isset($_SESSION['id'])){echo 'Tableau de bord';}else{echo 'Outil générique de gestion de process';} ?></title>
+      <title><?= $current_page['name']; ?></title>
 		  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 			<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 			<script type="text/javascript" src="/workflow/js/main.js"></script>

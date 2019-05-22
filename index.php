@@ -11,6 +11,11 @@
     include 'models/' . $class . '.php';
   });
 
+	$current_page=array(
+    "id" => "index",
+    "name" => "Outil de gestion de Process"
+  );
+
   $user_manager=new userManager();
 
 

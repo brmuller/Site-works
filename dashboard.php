@@ -11,6 +11,11 @@
     include 'models/' . $class . '.php';
   });
 
+  $current_page=array(
+    'id' => 'dashboard',
+    'name' => 'Tableau de bord'
+  );
+
   $history_manager=new historyManager();
   $user_manager=new userManager();
   $task_manager=new taskManager();
@@ -84,7 +89,7 @@
     $members_count=count($team_manager->getTeamMembers($team));
     $tasks_list=$tasks['list'];
     $nb_rows=count($tasks_list);
-    $nb_pages=ceil($tasks['rows_count']/8);
+    $nb_pages=ceil($tasks['rows_count']/MAX_TASK_ROWS);
     $events_list=$history_manager->getHistoryList($team);
   }
 

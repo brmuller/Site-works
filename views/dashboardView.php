@@ -16,7 +16,7 @@
         </div>
         <div class="menu">
           <?php if (count($teams)>0){ ?>
-              <?php for ($i = 0; $i < count($teams); $i++){ ?>
+              <?php for ($i = 0; $i < MAX_TEAM_ROWS; $i++){ ?>
                 <a class="item"><?= $teams[$i]['name'] ?></a>
               <?php } ?>
           <?php  } ?>
@@ -34,7 +34,7 @@
         <div class="header">Flows</div>
         <div class="menu">
           <?php if (count($flows)>0){ ?>
-              <?php for ($i = 0; $i < count($flows); $i++){ ?>
+              <?php for ($i = 0; $i < MAX_FLOW_ROWS; $i++){ ?>
                 <a class="item"><?= $flows[$i] ?></a>
               <?php } ?>
           <?php  } ?>
@@ -95,8 +95,14 @@
     <?php if (isset($tasks_list)){ ?>
     <div class="ui grid"  id="team-stats" style="margin-top:10px;">
       <div class="twelve wide column">
-        <h3 class="ui dividing header">Tâches</h3>
-        <a href="/workflow/dashboard.php?type=exporttasks&id=<?= $team ?>" class="item"><i class="large cloud download icon"></i></a>
+        <h3 class="ui dividing header">
+          Tâches
+          <?php if ($nb_rows>0){ ?>
+          <a href="/workflow/dashboard.php?type=exporttasks&id=<?= $team ?>" class="item">
+            <i class="file excel outline icon"></i>
+          </a>
+          <?php } ?>
+        </h3>
       </div>
       <div class="four wide column">
         <div class="ui tiny statistics" style="float:right;">
@@ -192,6 +198,9 @@
           </div>
           <?php } ?>
         </div>
+        <?php if($nb_rows>MAX_HISTORY_ROWS){
+          echo '<a href="/workflow/history.php">Plus ></a>';
+        } ?>
         <?php } ?>
       </div>
       <div class="six wide column">

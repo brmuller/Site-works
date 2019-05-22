@@ -61,7 +61,7 @@ class historyManager extends Manager
     $events_list=array();
 
     $str_query='SELECT event_type, affected_object_ref, creation_date, fullname, avatar FROM history, user
-      WHERE history.user_id=user.id AND team_id=? ORDER BY creation_date DESC limit 5';
+      WHERE history.user_id=user.id AND team_id=? ORDER BY creation_date DESC limit '. MAX_HISTORY_ROWS;
 
     $req=$bdd->prepare($str_query);
     $req->execute(array($team_id));
