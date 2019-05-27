@@ -6,10 +6,10 @@
       </div>
       <?php if (isset($_SESSION['id'])){ ?>
       <div class="ui massive text menu" style="margin-top:5px;margin-left:30px;">
-        <a class="<?php if ($current_page=='history'){echo 'active';} ?> item">
+        <a class="<?php if ($current_page['id']=='history'){echo 'active';} ?> item" href="/workflow/history.php">
           Historique
         </a>
-        <a class="<?php if ($current_page=='stats'){echo 'active';} ?> item">
+        <a class="<?php if ($current_page['id']=='stats'){echo 'active';} ?> item" href="/workflow/stats.php">
           Stats
         </a>
       </div>

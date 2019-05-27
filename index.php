@@ -47,5 +47,10 @@
 		}
 	}
 
+	//define items to include in the page view
+	if (isset($signin)){$modals[]='modalConnexion.php';}
+	if (isset($signup)){$modals[]='modalRegistration.php';}
+
+	//call template and display above items in the page
 	require('views/template.php');
 ?>

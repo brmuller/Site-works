@@ -426,7 +426,7 @@ $( document ).ready(function() {
     //update tasks table after team selection change
     $('#team-selection').on('change', function() {
       var team_id=this.value;
-      window.location.replace("/workflow/dashboard.php?type=team&id="+team_id);
+      window.location.replace(window.location.pathname +"?type=team&id="+team_id);
     });
 
     function buildTeamStats(nbTasks,nbMembers){

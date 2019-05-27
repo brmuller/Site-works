@@ -90,7 +90,7 @@
     $tasks_list=$tasks['list'];
     $nb_rows=count($tasks_list);
     $nb_pages=ceil($tasks['rows_count']/MAX_TASK_ROWS);
-    $events_list=$history_manager->getHistoryList($team);
+    $events_list=$history_manager->getHistoryList($team, MAX_HISTORY_ROWS);
   }
 
 
@@ -99,6 +99,15 @@
   $teams=$team_manager->getTeams();
   $flows=$flow_manager->getUserFlows();
 
+  //define items to include in the page view
+  $main_view='dashboardView.php'; //main content
+  if (isset($new_team) && $new_team){$modals[]='modalCreateTeam.php';} //modals
+  if (isset($join_team) && $join_team){$modals[]='modalJoinTeam.php';}
+  if (isset($new_flow) && $new_flow){$modals[]='modalCreateFlow.php';}
+  if (isset($new_task) && $new_task){$modals[]='modalCreateTask.php';}
+  if (isset($update_task) && $update_task){$modals[]='modalUpdateTask.php';}
 
+
+  //call template and display above items in the page
   require('views/template.php');
 ?>

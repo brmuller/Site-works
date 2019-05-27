@@ -115,7 +115,7 @@ h2{
 	margin-bottom   :30px !important;
 }
 
-#dashboard {
+.site-container {
 	padding-right       :10%;
 	padding-left        :10%;
   padding-top   :30px;

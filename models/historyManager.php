@@ -22,6 +22,20 @@ class historyManager extends Manager
     $bdd=null;
   }
 
+
+
+  private function getFullFrenchDate($str_date){
+    $nom_jour_fr = array("dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi");
+    $mois_fr = array("", "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août",
+            "septembre", "octobre", "novembre", "décembre");
+
+    // on extrait la date du jour
+    list($nom_jour, $jour, $mois, $annee) = explode('/', date("w/d/n/Y",strtotime($str_date)));
+    return $nom_jour_fr[$nom_jour].' '.$jour.' '.$mois_fr[$mois].' '.$annee;
+  }
+
+
+
   private function getEventMessage($event_type){
     $message="";
     switch ($event_type) {
@@ -53,7 +67,7 @@ class historyManager extends Manager
 
 
   //get list of tasks attached to team
-  public function getHistoryList($team_id){
+  public function getHistoryList($team_id, $max_events=""){
 
     $bdd = $this->connectDB();
 
@@ -61,7 +75,8 @@ class historyManager extends Manager
     $events_list=array();
 
     $str_query='SELECT event_type, affected_object_ref, creation_date, fullname, avatar FROM history, user
-      WHERE history.user_id=user.id AND team_id=? ORDER BY creation_date DESC limit '. MAX_HISTORY_ROWS;
+      WHERE history.user_id=user.id AND team_id=?
+      ORDER BY creation_date DESC'. ($max_events !="" ? ' limit '. $max_events : '');
 
     $req=$bdd->prepare($str_query);
     $req->execute(array($team_id));
@@ -74,7 +89,8 @@ class historyManager extends Manager
           "creation_date" => $row['creation_date'],
           "fullname" => $row['fullname'],
           "avatar" => $row['avatar'],
-          "message" => $this->getEventMessage($row['event_type'])
+          "message" => $this->getEventMessage($row['event_type']),
+          "long_date"=> $this->getFullFrenchDate($row['creation_date'])
         );
       }
     }

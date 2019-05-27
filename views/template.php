@@ -17,16 +17,12 @@
     <body>
 
       <!-- Modals -->
-      <?php if (isset($_SESSION['id'])){
-        if (isset($new_team) && $new_team){include("views/modalCreateTeam.php");}
-        if (isset($join_team) && $join_team){include("views/modalJoinTeam.php");}
-        if (isset($new_flow) && $new_flow){include("views/modalCreateFlow.php");}
-        if (isset($new_task) && $new_task){include("views/modalCreateTask.php");}
-        if (isset($update_task) && $update_task){include("views/modalUpdateTask.php");}
-      }else{
-        if (isset($signin)){require("views/modalConnexion.php");}
-        if (isset($signup)){require("views/modalRegistration.php");}
-      } ?>
+      <?php if (isset($modals)){
+        for ($i = 0; $i < count($modals); $i++){
+          include("views/".$modals[$i]);
+        }
+      }
+      ?>
 
 
       <!-- Header -->
@@ -34,9 +30,9 @@
 
 
       <!-- Main content -->
-  		<div <?php if(isset($_SESSION['id'])){echo 'id="dashboard"';} ?> class="main-content">
-        <?php if (isset($_SESSION['id'])){
-          require("views/dashboardView.php");
+  		<div class="main-content <?php if(isset($_SESSION['id'])){echo 'site-container';} ?>">
+        <?php if (isset($main_view)){
+          require('views/'.$main_view);
         }else{
           echo '<img src="/workflow/static/images/whiteboard-4054377_1920.jpg"/ style="width :100%;">';
         } ?>
