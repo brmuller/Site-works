@@ -65,6 +65,25 @@ class teamManager extends Manager
 
 
 
+  public function getTeamData($team_id){
+    $bdd = $this->connectDB();
+
+    $req=$bdd->prepare('SELECT name,scope,fullname FROM team,user WHERE team.creator=user.id AND team.id= ?');
+    $req->execute(array($team_id));
+
+    $team_data=array();
+    if ($req->rowCount()){
+      $row = $req->fetch();
+      $team_data = $row;
+    }
+
+    $bdd=null;
+    return $team_data;
+  }
+
+
+
+
   //check if user is member of a team
   public function checkUserInTeam($team_name,$user_id) {
     $bdd = $this->connectDB();
@@ -99,8 +118,9 @@ class teamManager extends Manager
 
     //insert record in table user_team
     $id_team=$bdd->lastInsertId();
-    $insertuserteam=$bdd->prepare('INSERT INTO user_team(id_user,id_team) VALUES(?,?)');
-		$insertuserteam->execute(array($creator,$id_team));
+    $join_date=date("Y-m-d H:i:s");
+    $insertuserteam=$bdd->prepare('INSERT INTO user_team(id_user,id_team,join_date) VALUES(?,?,?)');
+		$insertuserteam->execute(array($creator,$id_team,$join_date));
     $bdd=null;
 	}
 
@@ -112,7 +132,7 @@ class teamManager extends Manager
 
     //get list of users
     $bdd = $this->connectDB();
-    $req=$bdd->prepare('SELECT user.id AS user_id, user.fullname AS user_fullname FROM user,user_team WHERE user.id=user_team.id_user AND user_team.id_team= ?');
+    $req=$bdd->prepare('SELECT user.id AS user_id, user.fullname AS user_fullname, avatar, join_date FROM user,user_team WHERE user.id=user_team.id_user AND user_team.id_team= ?');
 
     $users=array();
     $req->execute(array($team_id));
@@ -120,7 +140,9 @@ class teamManager extends Manager
       while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
         $users[]=array(
           "id" => $row['user_id'],
-          "fullname" => $row['user_fullname']
+          "fullname" => $row['user_fullname'],
+          "avatar" => $row['avatar'],
+          "join_date" =>date('d/m/Y',strtotime($row['join_date']))
         );
       }
     }
@@ -166,8 +188,9 @@ class teamManager extends Manager
     $bdd = $this->connectDB();
 
 		//faire les contrôles de saisie en JS
-    $team_name=htmlspecialchars($_POST['team-name-join']);
+    $team_name=$_POST['team-name-join'];
     $user_id=$_SESSION['id'];
+    $join_date=date("Y-m-d H:i:s");
 
     //get id of the team
     $req=$bdd->prepare('SELECT id FROM team WHERE name= ?');
@@ -176,8 +199,8 @@ class teamManager extends Manager
     $team_id=$row['id'];
 
     //insert record in table user_team
-		$insertteamuser=$bdd->prepare('INSERT INTO user_team(id_user,id_team) VALUES(?,?)');
-		$insertteamuser->execute(array($user_id,$team_id));
+		$insertteamuser=$bdd->prepare('INSERT INTO user_team(id_user,id_team,join_date) VALUES(?,?)');
+		$insertteamuser->execute(array($user_id,$team_id,$join_date));
 
     //update history
     $history_manager=new historyManager();

@@ -200,7 +200,8 @@ class taskManager extends Manager
   public function getTaskData($task_id){
     $bdd = $this->connectDB();
     //get team id
-    $req=$bdd->prepare('SELECT flow.name AS flow_name, team.name AS team_name, task.* FROM task,team,flow WHERE team.id=task.team AND flow.id=task.flow AND task.id= ?');
+    $req=$bdd->prepare('SELECT flow.name AS flow_name, team.name AS team_name, task.* FROM
+      task,team,flow WHERE team.id=task.team AND flow.id=task.flow AND task.id= ?');
     $req->execute(array($task_id));
 
     $task_data=array();

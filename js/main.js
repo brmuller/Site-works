@@ -1,15 +1,8 @@
 $( document ).ready(function() {
 
-  //connexion form display
-  //$('#but-connect').click(function () {
-  //  $('#modal-connexion').modal({
-  //    onApprove : function(){return false;} //prevent modal to close when clicking Validate button
-  //  }).modal('show');
-  //});
-
-  //modal close
-  $('#modal-connexion').find(".deny.button").click(function () {
-    $('#connexion-dimmer').modal({
+  //close modal
+  $('.deny.button').click(function () {
+    $('.ui.dimmer').modal({
     }).modal('hide');
   });
 
@@ -126,10 +119,10 @@ $( document ).ready(function() {
 ////////////////////////////////////////  FLOW   /////////////////////////////////////
 
   //modal close
-  $('#modal-create-flow').find(".deny.button").click(function () {
-    $('#create-flow-dimmer').modal({
-    }).modal('hide');
-  });
+  //$('#modal-create-flow').find(".deny.button").click(function () {
+  //  $('#create-flow-dimmer').modal({
+  //  }).modal('hide');
+  //});
 
   var status_list = new Array();
 
@@ -189,10 +182,10 @@ $( document ).ready(function() {
 
 
   //modal close
-  $('#modal-create-team').find(".deny.button").click(function () {
-    $('#create-team-dimmer').modal({
-    }).modal('hide');
-  });
+  //$('#modal-create-team').find(".deny.button").click(function () {
+  //  $('#create-team-dimmer').modal({
+  //  }).modal('hide');
+  //});
 
   //team creation form submit check
   $('#modal-create-team').find(".positive.button").click(function () {
@@ -252,10 +245,10 @@ $( document ).ready(function() {
 
 
   //modal close
-  $('#modal-join-team').find(".deny.button").click(function () {
-    $('#join-team-dimmer').modal({
-    }).modal('hide');
-  });
+  //$('#modal-join-team').find(".deny.button").click(function () {
+  //  $('#join-team-dimmer').modal({
+  //  }).modal('hide');
+  //});
 
   //team join form submit check
   $('#modal-join-team').find(".positive.button").click(function () {
@@ -301,10 +294,10 @@ $( document ).ready(function() {
 
   ///////////////////////////  TASK CREATION  ///////////////////////////////////
     //modal close
-    $('#modal-create-task').find(".deny.button").click(function () {
-      $('#create-task-dimmer').modal({
-      }).modal('hide');
-    });
+    //$('#modal-create-task').find(".deny.button").click(function () {
+    //  $('#create-task-dimmer').modal({
+    //  }).modal('hide');
+    //});
 
     //create task team selection change
     $('#create-task-team').on('change', function() {
@@ -505,10 +498,10 @@ $( document ).ready(function() {
   ///////////////////////////////////////   TASK MODIFICATION   //////////////////////////////////////////////
 
     //modal close
-    $('#modal-modify-task').find(".deny.button").click(function () {
-      $('#modify-task-dimmer').modal({
-      }).modal('hide');
-    });
+    //$('#modal-modify-task').find(".deny.button").click(function () {
+    //  $('#modify-task-dimmer').modal({
+    //  }).modal('hide');
+    //});
 
 
     //open modal when click on task list table

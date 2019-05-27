@@ -66,6 +66,18 @@
         }
         break;
 
+      case "updateteam":
+        if (isset($_GET['id'])){
+          $team_id=$_GET['id'];
+          //check if user is allowed to access the team
+          if ($team_manager->accessTeamAuth($team_id)){
+            $team_data=$team_manager->getTeamData($team_id);
+            $team_members=$team_manager->getTeamMembers($team_id);
+            $update_team=true;
+          }
+        }
+        break;
+
       case "newtask":
         $new_task=true;
         break;
@@ -120,6 +132,7 @@
   if (isset($new_flow) && $new_flow){$modals[]='modalCreateFlow.php';}
   if (isset($new_task) && $new_task){$modals[]='modalCreateTask.php';}
   if (isset($update_task) && $update_task){$modals[]='modalUpdateTask.php';}
+  if (isset($update_team) && $update_team){$modals[]='modalUpdateTeam.php';}
 
 
   //call template and display above items in the page

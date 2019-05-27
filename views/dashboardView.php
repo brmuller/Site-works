@@ -22,7 +22,7 @@
           </div>
           <?php if (count($teams)>0){ ?>
               <?php for ($i = 0; $i < MAX_TEAM_ROWS; $i++){ ?>
-                <a class="item"><?= $teams[$i]['name'] ?></a>
+                <a href="/workflow/dashboard.php?type=updateteam&id=<?= $teams[$i]['id'] ?>" class="item"><?= $teams[$i]['name'] ?></a>
               <?php } ?>
           <?php  } ?>
           <?php if (count($teams)>MAX_TEAM_ROWS){ ?>
@@ -31,7 +31,7 @@
               <i class="dropdown icon"></i>
               <div class="menu transition hidden">
                 <?php for ($i = MAX_TEAM_ROWS; $i < count($teams); $i++){ ?>
-                  <a class="item"><?= $teams[$i]['name'] ?></a>
+                  <a href="/workflow/dashboard.php?type=updateteam&id=<?= $teams[$i]['id'] ?>" class="item"><?= $teams[$i]['name'] ?></a>
                 <?php } ?>
               </div>
             </div>
