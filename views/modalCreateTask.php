@@ -4,21 +4,18 @@
     <div class="header">Nouvelle tâche</div>
     <div class="scrolling content" style="height:480px;overflow:auto;">
       <form id="form-create-task" action="dashboard.php", method="POST">
-        <?php
-          if (count($teams)>0){
-            echo '<div class="ui icon input">';
-              echo '<select class="ui selection dropdown" style="font-size:small;" id="create-task-team" name="create-task-team">';
-                echo '<option value="" disabled selected>Equipe</option>';
-              for ($i = 0; $i < count($teams); $i++)
-              {
-                echo '<option value="'.$teams[$i]['id'].'">'.$teams[$i]['name'].'</option>';
-              }
-              echo '</select>';
-            echo '</div>';
-          }else{
-            echo "<strong>Vous n'avez pas encore d'équipe</strong>";
-          }
-        ?>
+        <?php if (count($teams)>0){ ?>
+            <div class="ui icon input">
+              <select class="ui selection dropdown" style="font-size:small;" id="create-task-team" name="create-task-team">
+                <option value="" disabled selected>Equipe</option>
+                <?php for ($i = 0; $i < count($teams); $i++){ ?>
+                  <option value="<?= $teams[$i]['id'] ?>"><?= $teams[$i]['name'] ?></option>
+                <?php } ?>
+              </select>
+            </div>
+        <?php }else{ ?>
+            <strong>Vous n'avez pas encore d'équipe</strong>
+        <?php } ?>
         <div class="ui icon input" id="create-task-flows-list">
         </div>
         <div class="transition hidden" id="create-task-details" style="margin-top:20px;">
