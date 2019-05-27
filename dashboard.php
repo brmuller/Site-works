@@ -40,20 +40,29 @@
     switch ($type) {
 
       case "team":
-        $_SESSION['team']=$_GET['id'];
+        if (isset($_GET['id'])){
+          $team_id=$_GET['id'];
+          //check if user is allowed to access the team
+          if ($team_manager->accessTeamAuth($team_id)){
+            $_SESSION['team']=$_GET['id'];
+          }
+        }
         break;
 
       case "updatetask":
         if (isset($_GET['id'])){
           $task_id=$_GET['id'];
-          $task_data=$task_manager->getTaskData($task_id);
-          $comments=$comment_manager->getTaskComments($task_id);
-          $flow_id=$task_data['flow']['id'];
-          $status_list=$flow_manager->getStatusList($flow_id);
-          $team_id=$task_data['team']['id'];
-          $members_list=$team_manager->getTeamMembers($team_id);
-          $task_uploads=$task_manager->getTaskFiles($task_id);
-          $update_task=true;
+          //check if user is allowed to access the task
+          if ($task_manager->accessTaskAuth($task_id)){
+            $task_data=$task_manager->getTaskData($task_id);
+            $comments=$comment_manager->getTaskComments($task_id);
+            $flow_id=$task_data['flow']['id'];
+            $status_list=$flow_manager->getStatusList($flow_id);
+            $team_id=$task_data['team']['id'];
+            $members_list=$team_manager->getTeamMembers($team_id);
+            $task_uploads=$task_manager->getTaskFiles($task_id);
+            $update_task=true;
+          }
         }
         break;
 
@@ -78,8 +87,13 @@
         break;
 
       case "exporttasks":
-        $team_id=$_GET['id'];
-        $task_manager->exportTasksCSV($team_id);
+        if (isset($_GET['id'])){
+          $team_id=$_GET['id'];
+          //check if user is allowed to access the team
+          if ($team_manager->accessTeamAuth($team_id)){
+            $task_manager->exportTasksCSV($team_id);
+          }
+        }
     }
   }
 
@@ -110,4 +124,3 @@
 
   //call template and display above items in the page
   require('views/template.php');
-?>

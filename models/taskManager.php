@@ -177,6 +177,24 @@ class taskManager extends Manager
 
 
 
+  //check if user is allowed to access a task (user can only access tasks from the teams he belongs to)
+  public function accessTaskAuth($task_id){
+    $bdd = $this->connectDB();
+    $auth=false;
+
+    $user_id=$_SESSION['id'];
+    $req=$bdd->prepare('SELECT * from task, user_team WHERE task.team=user_team.id_team AND task.id= ? AND user_team.id_user=?');
+    $req->execute(array($task_id, $user_id));
+    if ($req->rowCount()){
+      $auth=true;
+    }
+
+    $bdd=null;
+    return $auth;
+  }
+
+
+
 
   //get data attached to task
   public function getTaskData($task_id){

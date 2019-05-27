@@ -53,4 +53,3 @@
 
 	//call template and display above items in the page
 	require('views/template.php');
-?>

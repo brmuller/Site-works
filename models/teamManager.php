@@ -44,6 +44,26 @@ class teamManager extends Manager
 
 
 
+  //check if user is allowed to access a team (user can only access teams he belongs to)
+  public function accessTeamAuth($team_id){
+    $bdd = $this->connectDB();
+    $user_id=$_SESSION['id'];
+
+    $auth=false;
+
+    $req=$bdd->prepare('SELECT * FROM user_team WHERE id_team=? AND id_user= ?');
+    $req->execute(array($team_id,$user_id));
+
+    if ($req->rowCount()){
+      $auth=true;
+    }
+
+    $bdd=null;
+    return $auth;
+  }
+
+
+
 
   //check if user is member of a team
   public function checkUserInTeam($team_name,$user_id) {

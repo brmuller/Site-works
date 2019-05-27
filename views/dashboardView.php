@@ -11,40 +11,58 @@
         </div>
       </div>
       <div class="item">
-        <div class="header">
-          Equipes
-        </div>
         <div class="menu">
-          <?php if (count($teams)>0){ ?>
-              <?php for ($i = 0; $i < MAX_TEAM_ROWS; $i++){ ?>
-                <a class="item"><?= $teams[$i]['name'] ?></a>
-              <?php } ?>
-          <?php  } ?>
           <div class="ui dropdown item">
-            <span style="font-weight:bold;color:darkgrey;">Plus</span>
+            <span class="menu-header">Equipes</span>
             <i class="dropdown icon"></i>
             <div class="menu transition hidden">
               <a href="/workflow/dashboard.php?type=newteam" class="item" id="but-create-team"><i class="edit icon"></i> Créer une équipe</a>
               <a href="/workflow/dashboard.php?type=jointeam" class="item" id="but-join-team"><i class="users icon"></i> Rejoindre une équipe</a>
             </div>
           </div>
+          <?php if (count($teams)>0){ ?>
+              <?php for ($i = 0; $i < MAX_TEAM_ROWS; $i++){ ?>
+                <a class="item"><?= $teams[$i]['name'] ?></a>
+              <?php } ?>
+          <?php  } ?>
+          <?php if (count($teams)>MAX_TEAM_ROWS){ ?>
+            <div class="ui dropdown item">
+              <span style="font-weight:bold;color:darkgrey;">Plus</span>
+              <i class="dropdown icon"></i>
+              <div class="menu transition hidden">
+                <?php for ($i = MAX_TEAM_ROWS; $i < count($teams); $i++){ ?>
+                  <a class="item"><?= $teams[$i]['name'] ?></a>
+                <?php } ?>
+              </div>
+            </div>
+          <?php } ?>
         </div>
       </div>
       <div class="item">
-        <div class="header">Flows</div>
         <div class="menu">
-          <?php if (count($flows)>0){ ?>
-              <?php for ($i = 0; $i < MAX_FLOW_ROWS; $i++){ ?>
-                <a class="item"><?= $flows[$i] ?></a>
-              <?php } ?>
-          <?php  } ?>
           <div class="ui dropdown item">
-            <span style="font-weight:bold;color:darkgrey;">Plus</span>
+            <span class="menu-header">Flows</span>
             <i class="dropdown icon"></i>
             <div class="menu transition hidden">
               <a href="/workflow/dashboard.php?type=newflow" class="item" id="but-create-flow"><i class="edit icon"></i> Créer un flow</a>
             </div>
           </div>
+          <?php if (count($flows)>0){ ?>
+              <?php for ($i = 0; $i < MAX_FLOW_ROWS; $i++){ ?>
+                <a class="item"><?= $flows[$i] ?></a>
+              <?php } ?>
+          <?php  } ?>
+          <?php if (count($flows)>MAX_FLOW_ROWS){ ?>
+          <div class="ui dropdown item">
+            <span style="font-weight:bold;color:darkgrey;">Plus</span>
+            <i class="dropdown icon"></i>
+            <div class="menu transition hidden">
+              <?php for ($i = MAX_FLOW_ROWS; $i < count($flows); $i++){ ?>
+                <a class="item"><?= $flows[$i] ?></a>
+              <?php } ?>
+            </div>
+          </div>
+          <?php } ?>
         </div>
       </div>
       <div class="item">

@@ -11,14 +11,6 @@
     include 'models/' . $class . '.php';
   });
 
-  if (isset($_GET['type']) && isset($_GET['id'])){
-    $type=$_GET['type'];
-    if ($type=='team'){
-      $_SESSION['team']=$_GET['id'];
-    }
-  }
-
-
   $current_page=array(
     'id' => 'history',
     'name' => 'Historique'
@@ -26,6 +18,19 @@
 
   $history_manager=new historyManager();
   $team_manager=new teamManager();
+
+
+  //handle GETS on the page
+  if (isset($_GET['type']) && isset($_GET['id'])){
+    $type=$_GET['type'];
+    if ($type=='team'){
+      $team_id=$_GET['id'];
+      //check if user is allowed to access the team
+      if ($team_manager->accessTeamAuth($team_id)){
+        $_SESSION['team']=$team_id;
+      }
+    }
+  }
 
 
   if (isset($_SESSION['team'])){
@@ -42,4 +47,3 @@
 
   //call template and display above items in the page
   require('views/template.php');
-?>

@@ -3,6 +3,17 @@
 	background: rgb(232,232,232);
 }
 
+.menu-header{
+	font-weight:700;
+	color:black;
+	font-size:13px;
+	font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.ui.vertical.menu .menu{
+	margin-top: 0 !important;
+}
+
 .clickable{
 	cursor: pointer;
 }
