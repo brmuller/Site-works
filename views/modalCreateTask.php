@@ -37,7 +37,8 @@
           </div>
           <div class="ui icon input" id="create-task-assignees-list">
           </div>
-          <div class="ui left icon input" style="width:200px;">
+          <div style="margin-top:20px;">Date d'échéance</div>
+          <div class="ui left icon input" style="margin-top:0;width:200px;">
             <i class="calendar icon"></i>
             <input type="date" name="create-task-target" id="create-task-target">
           </div>
