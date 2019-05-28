@@ -3,7 +3,7 @@
   <div class="ui modal transition visible active" id="modal-create-flow" style="height:600px;position:relative;margin-top:-300px;margin-left:-250px;"> <!--Modal créer Flow -->
     <div class="header">Créer un flow</div>
     <div class="scrolling content" style="height:480px;overflow:auto;">
-      <form id="form-create-flow" action="dashboard.php", method="POST">
+      <form id="form-create-flow" action="/workflow/dashboard/", method="POST">
         <div class="ui input" >
           <input type="text" name="flow-name" placeholder="Nom flow" id="flow-name" >
         </div>

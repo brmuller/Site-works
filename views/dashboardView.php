@@ -7,7 +7,7 @@
           <div class="ui teal left pointing label" style="margin-left: 8em;">4</div>
         </div>
         <div class="menu">
-          <a href="/workflow/dashboard.php?type=newtask" class="item"><i class="plus icon"></i>Nouvelle tâche</a>
+          <a href="/workflow/dashboard/newtask" class="item"><i class="plus icon"></i>Nouvelle tâche</a>
         </div>
       </div>
       <div class="item">
@@ -16,13 +16,13 @@
             <span class="menu-header">Equipes</span>
             <i class="dropdown icon"></i>
             <div class="menu transition hidden">
-              <a href="/workflow/dashboard.php?type=newteam" class="item" id="but-create-team"><i class="edit icon"></i> Créer une équipe</a>
-              <a href="/workflow/dashboard.php?type=jointeam" class="item" id="but-join-team"><i class="users icon"></i> Rejoindre une équipe</a>
+              <a href="/workflow/dashboard/newteam" class="item" id="but-create-team"><i class="edit icon"></i> Créer une équipe</a>
+              <a href="/workflow/dashboard/jointeam" class="item" id="but-join-team"><i class="users icon"></i> Rejoindre une équipe</a>
             </div>
           </div>
           <?php if (count($teams)>0){ ?>
               <?php for ($i = 0; $i < MAX_TEAM_ROWS; $i++){ ?>
-                <a href="/workflow/dashboard.php?type=updateteam&id=<?= $teams[$i]['id'] ?>" class="item"><?= $teams[$i]['name'] ?></a>
+                <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= $teams[$i]['name'] ?></a>
               <?php } ?>
           <?php  } ?>
           <?php if (count($teams)>MAX_TEAM_ROWS){ ?>
@@ -31,7 +31,7 @@
               <i class="dropdown icon"></i>
               <div class="menu transition hidden">
                 <?php for ($i = MAX_TEAM_ROWS; $i < count($teams); $i++){ ?>
-                  <a href="/workflow/dashboard.php?type=updateteam&id=<?= $teams[$i]['id'] ?>" class="item"><?= $teams[$i]['name'] ?></a>
+                  <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= $teams[$i]['name'] ?></a>
                 <?php } ?>
               </div>
             </div>
@@ -44,7 +44,7 @@
             <span class="menu-header">Flows</span>
             <i class="dropdown icon"></i>
             <div class="menu transition hidden">
-              <a href="/workflow/dashboard.php?type=newflow" class="item" id="but-create-flow"><i class="edit icon"></i> Créer un flow</a>
+              <a href="/workflow/dashboard/newflow" class="item" id="but-create-flow"><i class="edit icon"></i> Créer un flow</a>
             </div>
           </div>
           <?php if (count($flows)>0){ ?>
@@ -116,7 +116,7 @@
         <h3 class="ui dividing header">
           Tâches
           <?php if ($nb_rows>0){ ?>
-          <a href="/workflow/dashboard.php?type=exporttasks&id=<?= $team ?>" class="item">
+          <a href="/workflow/dashboard/exporttasks/<?= $team ?>" class="item">
             <i class="file excel outline icon"></i>
           </a>
           <?php } ?>
@@ -134,7 +134,7 @@
           </div>
           <div class="statistic" style="margin-bottom:0;">
             <div class="value">
-              <img src="static/avatar/joe.jpg" class="ui circular inline image" style="height:25px;">
+              <img src="/workflow/static/avatar/joe.jpg" class="ui circular inline image" style="height:25px;">
               <?= $members_count ?>
             </div>
             <div class="label">
@@ -199,7 +199,7 @@
           <?php for ($i = 0; $i < count($events_list); $i++){ ?>
           <div class="comment">
             <a class="avatar">
-              <img src="static/avatar/<?= $events_list[$i]['avatar'] ?>.jpg">
+              <img src="/workflow/static/avatar/<?= $events_list[$i]['avatar'] ?>.jpg">
             </a>
             <div class="content">
               <div class="metadata">
@@ -209,7 +209,7 @@
                 <a class="author"><?= $events_list[$i]['fullname'] ?></a>
                 <?= $events_list[$i]['message'] ?>
                 <?php if($events_list[$i]['event_type'] != 'team_join'){
-                  echo '<a href="/workflow/dashboard.php?type=updatetask&id='.$events_list[$i]['affected_object_ref'].'">'.$events_list[$i]['affected_object_ref'].'</a>';
+                  echo '<a href="/workflow/dashboard/updatetask/'.$events_list[$i]['affected_object_ref'].'">'.$events_list[$i]['affected_object_ref'].'</a>';
                 } ?>
               </div>
             </div>
@@ -217,7 +217,7 @@
           <?php } ?>
         </div>
         <?php if($nb_rows>MAX_HISTORY_ROWS){
-          echo '<a href="/workflow/history.php">Plus ></a>';
+          echo '<a href="/workflow/history">Plus ></a>';
         } ?>
         <?php } ?>
       </div>

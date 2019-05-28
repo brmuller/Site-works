@@ -56,7 +56,7 @@
       </div>
       <div class="twelve wide column">
         <div class="scrolling content" style="height:420px;overflow:auto;padding-right:10px;">
-          <form id="form-modify-task" action="dashboard.php", method="POST">
+          <form id="form-modify-task" action="/workflow/dashboard/", method="POST">
             <div class="ui icon input" style="margin-top:0;display:none;">
               <input type="text" name="modify-task-id" id="modify-task-id" value="<?= $task_id ?>">
             </div>

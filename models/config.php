@@ -17,3 +17,5 @@
   define('MAX_TASK_ROWS', 8); // max tasks display in dashboard view
   define('MAX_TEAM_ROWS', 4); // max teams display in dashboard left menu view
   define('MAX_FLOW_ROWS', 4); // max teams display in dashboard left menu view
+
+  define('ROOT_DIR', 'C:/wamp64/www/workflow');

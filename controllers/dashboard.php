@@ -1,6 +1,6 @@
 <?php
   //the session starts
-  session_start();
+  //session_start();
   if(!isset($_SESSION['id'])){
   	header('Location: /workflow/');
   	exit;
@@ -34,24 +34,24 @@
 
 
   //handle GETS on page
-  if (isset($_GET['type'])){
-    $type=$_GET['type'];
+  if (isset($type)){
+    //$type=$_GET['type'];
 
     switch ($type) {
 
       case "team":
-        if (isset($_GET['id'])){
-          $team_id=$_GET['id'];
+        if (isset($id)){
+          $team_id=$id;
           //check if user is allowed to access the team
           if ($team_manager->accessTeamAuth($team_id)){
-            $_SESSION['team']=$_GET['id'];
+            $_SESSION['team']=$id;
           }
         }
         break;
 
       case "updatetask":
-        if (isset($_GET['id'])){
-          $task_id=$_GET['id'];
+        if (isset($id)){
+          $task_id=$id;
           //check if user is allowed to access the task
           if ($task_manager->accessTaskAuth($task_id)){
             $task_data=$task_manager->getTaskData($task_id);
@@ -67,8 +67,8 @@
         break;
 
       case "updateteam":
-        if (isset($_GET['id'])){
-          $team_id=$_GET['id'];
+        if (isset($id)){
+          $team_id=$id;
           //check if user is allowed to access the team
           if ($team_manager->accessTeamAuth($team_id)){
             $team_data=$team_manager->getTeamData($team_id);
@@ -99,8 +99,8 @@
         break;
 
       case "exporttasks":
-        if (isset($_GET['id'])){
-          $team_id=$_GET['id'];
+        if (isset($id)){
+          $team_id=$id;
           //check if user is allowed to access the team
           if ($team_manager->accessTeamAuth($team_id)){
             $task_manager->exportTasksCSV($team_id);

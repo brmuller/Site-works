@@ -1,6 +1,6 @@
 <?php
   //the session starts
-  session_start();
+  //session_start();
   if(!isset($_SESSION['id'])){
   	header('Location: /workflow/');
   	exit;
@@ -21,10 +21,10 @@
 
 
   //handle GETS on the page
-  if (isset($_GET['type']) && isset($_GET['id'])){
-    $type=$_GET['type'];
+  if (isset($type) && isset($id)){
+    //$type=$_GET['type'];
     if ($type=='team'){
-      $team_id=$_GET['id'];
+      $team_id=$id;
       //check if user is allowed to access the team
       if ($team_manager->accessTeamAuth($team_id)){
         $_SESSION['team']=$team_id;

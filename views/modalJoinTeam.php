@@ -3,7 +3,7 @@
   <div class="ui modal transition visible active" id="modal-join-team" style="margin-top:-100px;margin-left:-250px;"> <!--Modal rejoindre équipe -->
     <div class="header">Rejoindre une équipe</div>
     <div class="content">
-      <form id="form-join-team" action="dashboard.php", method="POST">
+      <form id="form-join-team" action="/workflow/dashboard", method="POST">
         <div class="ui search">
           <div class="ui icon input">
             <input type="text" name="team-name-join" id="team-name-join" placeholder="Trouver une équipe...">

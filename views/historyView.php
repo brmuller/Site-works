@@ -3,7 +3,7 @@
     <div style="margin-right:10px;">Equipe: </div>
     <div style="font-size:small;">
       <?php if (count($teams)>0){ ?>
-        <select class="ui selection dropdown" id="team-selection">
+        <select class="ui selection dropdown" id="team-selection-history">
           <?php if (!isset($team)){ ?>
             <option value="" disabled selected>Equipe</option>
           <?php } ?>
@@ -32,7 +32,7 @@
         ?>
         <div class="comment">
           <a class="avatar">
-            <img src="static/avatar/<?= $events_list[$i]['avatar'] ?>.jpg">
+            <img src="/workflow/static/avatar/<?= $events_list[$i]['avatar'] ?>.jpg">
           </a>
           <div class="content">
             <div class="metadata">

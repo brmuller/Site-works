@@ -224,7 +224,7 @@ $( document ).ready(function() {
   function ajaxCall(data, func){
 
     $.ajax({
-      url : '/workflow/ajax.php',
+      url : '/workflow/controllers/ajax.php',
       type : 'POST', // Le type de la requête HTTP, ici devenu POST
       data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
       dataType : 'json',
@@ -311,7 +311,7 @@ $( document ).ready(function() {
 
         //get list of flows in team
         $.ajax({
-          url : '/workflow/ajax.php',
+          url : '/workflow/controllers/ajax.php',
           type : 'POST', // Le type de la requête HTTP, ici devenu POST
           data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
           dataType : 'json',
@@ -331,7 +331,7 @@ $( document ).ready(function() {
 
               //get list of members in team
               $.ajax({
-                url : '/workflow/ajax.php',
+                url : '/workflow/controllers/ajax.php',
                 type : 'POST', // Le type de la requête HTTP, ici devenu POST
                 data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
                 dataType : 'json',
@@ -419,7 +419,7 @@ $( document ).ready(function() {
     //update tasks table after team selection change
     $('#team-selection').on('change', function() {
       var team_id=this.value;
-      window.location.replace(window.location.pathname +"?type=team&id="+team_id);
+      window.location.replace("/workflow/dashboard/team/"+team_id);
     });
 
     function buildTeamStats(nbTasks,nbMembers){
@@ -507,7 +507,7 @@ $( document ).ready(function() {
     //open modal when click on task list table
     $(document).on("click", "#task-table tbody tr", function() {
       var taskid=this.id;
-      window.location.replace("/workflow/dashboard.php?type=updatetask&id="+taskid);
+      window.location.replace("/workflow/dashboard/updatetask/"+taskid);
     });
 
 
@@ -529,7 +529,7 @@ $( document ).ready(function() {
       };
 
       $.ajax({
-        url : '/workflow/ajax.php',
+        url : '/workflow/controllers/ajax.php',
         type : 'POST', // Le type de la requête HTTP, ici devenu POST
         data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType : 'json',
@@ -570,7 +570,7 @@ $( document ).ready(function() {
       var form = $('#form-attachments')[0];
 	    var formData = new FormData(form);
       $.ajax({
-        url : '/workflow/ajax.php',
+        url : '/workflow/controllers/ajax.php',
         type : 'POST', // Le type de la requête HTTP, ici devenu POST
         data : formData, // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType : 'json',
@@ -641,7 +641,7 @@ $( document ).ready(function() {
       };
 
       $.ajax({
-        url : '/workflow/ajax.php',
+        url : '/workflow/controllers/ajax.php',
         type : 'POST', // Le type de la requête HTTP, ici devenu POST
         data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType : 'json',
@@ -669,7 +669,7 @@ $( document ).ready(function() {
       };
 
       $.ajax({
-        url : '/workflow/ajax.php',
+        url : '/workflow/controllers/ajax.php',
         type : 'POST', // Le type de la requête HTTP, ici devenu POST
         data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType : 'json',
@@ -699,7 +699,7 @@ $( document ).ready(function() {
       };
 
       $.ajax({
-        url : '/workflow/ajax.php',
+        url : '/workflow/controllers/ajax.php',
         type : 'POST', // Le type de la requête HTTP, ici devenu POST
         data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType : 'json',
@@ -710,7 +710,7 @@ $( document ).ready(function() {
             };
 
             $.ajax({
-              url : '/workflow/ajax.php',
+              url : '/workflow/controllers/ajax.php',
               type : 'POST', // Le type de la requête HTTP, ici devenu POST
               data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
               dataType : 'json',
@@ -750,6 +750,17 @@ $( document ).ready(function() {
       return container;
 
     }
+
+
+
+    ///////////////////////////////////////   HISTORY   //////////////////////////////////////////////
+
+      //update history after team selection change
+      $('#team-selection-history').on('change', function() {
+        var team_id=this.value;
+        window.location.replace("/workflow/history/team/"+team_id);
+      });
+
 
 
   //////////////////////////////////////////////// OTHER //////////////////////////////////
@@ -819,7 +830,7 @@ $( document ).ready(function() {
         };
 
         $.ajax({
-          url : '/workflow/ajax.php',
+          url : '/workflow/controllers/ajax.php',
           type : 'POST', // Le type de la requête HTTP, ici devenu POST
           data: { jsondata: JSON.stringify( data ) }, // On fait passer nos variables, exactement comme en GET, au script more_com.php
           dataType : 'json',

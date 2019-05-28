@@ -3,7 +3,7 @@
   <div class="ui modal transition visible active" id="modal-create-team" style="margin-top:-150px;margin-left:-250px;"> <!--Modal créer équipe -->
     <div class="header">Créer une équipe</div>
     <div class="content">
-      <form id="form-create-team" action="dashboard.php", method="POST">
+      <form id="form-create-team" action="/workflow/dashboard/", method="POST">
         <div class="ui input" >
           <input type="text" name="team-name" placeholder="Nom" id="team-name" >
         </div>

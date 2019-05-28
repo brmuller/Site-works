@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="nine wide column">
-        <form id="form-modify-team" action="dashboard.php", method="POST">
+        <form id="form-modify-team" action="/workflow/dashboard/", method="POST">
           <div class="ui icon input" style="margin-top:0;display:none;">
             <input type="text" name="modify-team-id" id="modify-team-id" value="<?= $team_id ?>">
           </div>

@@ -3,7 +3,7 @@
   <div class="ui modal transition visible active" id="modal-create-task" style="width:600px;height:600px;position:relative;margin-top:-300px;margin-left:-300px;"> <!--Modal créer tâche -->
     <div class="header">Nouvelle tâche</div>
     <div class="scrolling content" style="height:480px;overflow:auto;">
-      <form id="form-create-task" action="dashboard.php", method="POST">
+      <form id="form-create-task" action="/workflow/dashboard/", method="POST">
         <?php if (count($teams)>0){ ?>
             <div class="ui icon input">
               <select class="ui selection dropdown" style="font-size:small;" id="create-task-team" name="create-task-team">

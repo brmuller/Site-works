@@ -55,7 +55,7 @@ class userManager extends Manager
       $_SESSION['lastname']=$data['lastname'];
       $_SESSION['avatar']=$data['avatar'];
 
-      header('Location: /workflow/dashboard.php');
+      header('Location: /workflow/dashboard/');
       exit;
     }
     $bdd=null;
@@ -92,7 +92,7 @@ class userManager extends Manager
 		$_SESSION['avatar']=$avatar;
 
     $bdd=null;
-		header('Location: /workflow/dashboard.php');
+		header('Location: /workflow/dashboard/');
 		exit;
 	}
 
