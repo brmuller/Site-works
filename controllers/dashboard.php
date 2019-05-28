@@ -31,6 +31,7 @@
   if (isset($_POST['flow-name'])){$flow_manager->createFlow();}
   if (isset($_POST['team-name-join'])){$team_manager->joinTeam();}
   if (isset($_POST['modify-task-title'])){$task_manager->updateTask();}
+  if (isset($_POST['modify-team-name'])){$team_manager->updateTeam();}
 
 
   //handle GETS on page

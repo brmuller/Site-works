@@ -37,7 +37,7 @@
           </div>
           <div>Nom</div>
           <div class="ui icon input" style="margin-top:0;">
-            <input type="text" name="modify-team-name" id="modify-team-title" placeholder="Nom" value="<?= htmlspecialchars($team_data['name']) ?>">
+            <input type="text" name="modify-team-name" id="modify-team-name" placeholder="Nom" value="<?= htmlspecialchars($team_data['name']) ?>">
           </div>
           <div style="margin-top:20px;">Scope</div>
           <div class="ui icon input" style="margin-top:0;">

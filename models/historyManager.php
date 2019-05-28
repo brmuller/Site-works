@@ -40,6 +40,10 @@ class historyManager extends Manager
         $message="a rejoint l'équipe";
         break;
 
+      case "team_update":
+        $message="a modifié l'équipe";
+        break;
+
       case "comment_add":
         $message="a commenté la tâche ";
         break;

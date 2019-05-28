@@ -182,6 +182,30 @@ class teamManager extends Manager
 
 
 
+  //update task data
+  public function updateTeam(){
+    //date_default_timezone_set('Europe/Paris');
+    $bdd = $this->connectDB();
+
+    $team_id=$_POST['modify-team-id'];
+    $name=$_POST['modify-team-name'];
+    $scope=$_POST['modify-team-scope'];
+
+    //insert record in table task
+		$inserttask=$bdd->prepare('UPDATE team SET name=?, scope=? WHERE id=?');
+		$inserttask->execute(array($name,$scope,$team_id));
+
+    //update history
+    $history_manager=new historyManager();
+    $history_manager->addEvent($team_id,'team_update');
+
+    $bdd=null;
+
+	}
+
+
+
+
   //insert new member in team
   public function joinTeam(){
 

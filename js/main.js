@@ -241,6 +241,40 @@ $( document ).ready(function() {
   }
 
 
+  //team update
+  $('#modal-modify-team').find(".positive.button").click(function () {
+    // Get the Login Data value and trim it
+    var team_name = $.trim($('#modify-team-name').val());
+    var team_scope = $.trim($('#modify-team-scope').val());
+
+
+    if (team_name  === '') { //check if field is empty
+      $('#modal-modify-team').find(".error").text("Veuillez saisir un nom d'équipe.");
+
+    }else if (team_scope===''){
+      $('#modal-modify-team').find(".error").text("Veuillez sélectionner la portée de votre équipe");
+
+    }else {
+
+      var data = {
+        "action": "checkteamname" ,
+        "team_name": team_name
+      };
+
+      //check if the team name already exists
+      var func = function(data) { // NOTE: no "new"
+        if (data.teamExists){
+          $('#modal-modify-team').find(".error").text("Ce nom d'équipe existe déjà. Vous pouvez la rejoindre en cliquant sur 'Rejoindre une équipe'.");
+        }else{
+          document.forms['form-modify-team'].submit();
+        }
+      }
+
+      ajaxCall(data,func);
+    }
+  });
+
+
 ///////////////////////////////  TEAM JOIN  /////////////////////////////////////////
 
 

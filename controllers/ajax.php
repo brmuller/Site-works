@@ -95,4 +95,6 @@
     $response_json=array('file'=>$response);
   }
 
-  echo json_encode($response_json);
+  if (isset($response_json)){
+    echo json_encode($response_json);
+  }
