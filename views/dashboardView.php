@@ -22,7 +22,7 @@
           </div>
           <?php if (count($teams)>0){ ?>
               <?php for ($i = 0; $i < MAX_TEAM_ROWS; $i++){ ?>
-                <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= $teams[$i]['name'] ?></a>
+                <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= htmlspecialchars($teams[$i]['name']) ?></a>
               <?php } ?>
           <?php  } ?>
           <?php if (count($teams)>MAX_TEAM_ROWS){ ?>
@@ -31,7 +31,7 @@
               <i class="dropdown icon"></i>
               <div class="menu transition hidden">
                 <?php for ($i = MAX_TEAM_ROWS; $i < count($teams); $i++){ ?>
-                  <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= $teams[$i]['name'] ?></a>
+                  <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= htmlspecialchars($teams[$i]['name']) ?></a>
                 <?php } ?>
               </div>
             </div>
@@ -49,7 +49,7 @@
           </div>
           <?php if (count($flows)>0){ ?>
               <?php for ($i = 0; $i < MAX_FLOW_ROWS; $i++){ ?>
-                <a class="item"><?= $flows[$i] ?></a>
+                <a class="item"><?= htmlspecialchars($flows[$i]) ?></a>
               <?php } ?>
           <?php  } ?>
           <?php if (count($flows)>MAX_FLOW_ROWS){ ?>
@@ -58,7 +58,7 @@
             <i class="dropdown icon"></i>
             <div class="menu transition hidden">
               <?php for ($i = MAX_FLOW_ROWS; $i < count($flows); $i++){ ?>
-                <a class="item"><?= $flows[$i] ?></a>
+                <a class="item"><?= htmlspecialchars($flows[$i]) ?></a>
               <?php } ?>
             </div>
           </div>
@@ -89,9 +89,9 @@
                     <?php } ?>
                     <?php for ($i = 0; $i < count($teams); $i++) { ?>
                       <?php if (isset($team) AND $team==$teams[$i]['id']){ ?>
-                        <option selected value="<?= $teams[$i]['id'] ?>"><?= $teams[$i]['name'] ?></option>
+                        <option selected value="<?= $teams[$i]['id'] ?>"><?= htmlspecialchars($teams[$i]['name']) ?></option>
                       <?php }else{ ?>
-                        <option value="<?= $teams[$i]['id'] ?>"><?= $teams[$i]['name'] ?></option>
+                        <option value="<?= $teams[$i]['id'] ?>"><?= htmlspecialchars($teams[$i]['name']) ?></option>
                       <?php } ?>
                     <?php } ?>
                   </select>
@@ -116,7 +116,7 @@
         <h3 class="ui dividing header">
           Tâches
           <?php if ($nb_rows>0){ ?>
-          <a href="/workflow/dashboard/exporttasks/<?= $team ?>" class="item">
+          <a href="/workflow/dashboard/exporttasks/<?= htmlspecialchars($team) ?>" class="item">
             <i class="file excel outline icon"></i>
           </a>
           <?php } ?>
@@ -158,9 +158,9 @@
         <tbody>
           <?php for ($i=0;$i<$nb_rows;$i++){ ?>
             <tr id="<?= $tasks_list[$i]['id'] ?>">
-              <td><?= $tasks_list[$i]['title'] ?></td>
-              <td><?= $tasks_list[$i]['fullname'] ?></td>
-              <td><?= $tasks_list[$i]['status'] ?></td>
+              <td><?= htmlspecialchars($tasks_list[$i]['title']) ?></td>
+              <td><?= htmlspecialchars($tasks_list[$i]['fullname']) ?></td>
+              <td><?= htmlspecialchars($tasks_list[$i]['status']) ?></td>
               <td><div class="ui star rating disabled" data-rating="<?= $tasks_list[$i]['priority'] ?>" data-max-rating="3"></div></td>
             </tr>
           <?php } ?>
@@ -206,8 +206,8 @@
                 <span class="date"><?= $events_list[$i]['creation_date'] ?></span>
               </div>
               <div class="text">
-                <a class="author"><?= $events_list[$i]['fullname'] ?></a>
-                <?= $events_list[$i]['message'] ?>
+                <a class="author"><?= htmlspecialchars($events_list[$i]['fullname']) ?></a>
+                <?= htmlspecialchars($events_list[$i]['message']) ?>
                 <?php if($events_list[$i]['event_type'] != 'team_join'){
                   echo '<a href="/workflow/dashboard/updatetask/'.$events_list[$i]['affected_object_ref'].'">'.$events_list[$i]['affected_object_ref'].'</a>';
                 } ?>

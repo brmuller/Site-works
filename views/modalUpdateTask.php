@@ -15,13 +15,13 @@
           <div class="row">
             <div class="column">
               <span style="font-weight:bold;">Equipe:</span>
-              <span id="task-team"> <?= $task_data['team']['name'] ?></span>
+              <span id="task-team"> <?= htmlspecialchars($task_data['team']['name']) ?></span>
             </div>
           </div>
           <div class="row">
             <div class="column">
               <span style="font-weight:bold;">Flow:</span>
-              <span id="task-flow"><?= $task_data['flow']['name'] ?></span>
+              <span id="task-flow"><?= htmlspecialchars($task_data['flow']['name']) ?></span>
             </div>
           </div>
         </div>
@@ -42,10 +42,10 @@
         <?php for ($i = 0; $i < count($status_list); $i++) { ?>
             <div class="row step">
               <?php if ($status_list[$i]==$task_data['status']){ ?>
-                <div class="step title active"> <?= $status_list[$i] ?></div>
+                <div class="step title active"> <?= htmlspecialchars($status_list[$i]) ?></div>
                 <span class="ui teal circular label"><?= ($i+1) ?></span>
               <?php }else{ ?>
-                <div class="step title"> <?= $status_list[$i] ?></div>
+                <div class="step title"> <?= htmlspecialchars($status_list[$i]) ?></div>
                 <span class="ui grey circular label clickable"> <?= ($i+1) ?></span>
               <?php } ?>
             </div>
@@ -61,7 +61,7 @@
               <input type="text" name="modify-task-id" id="modify-task-id" value="<?= $task_id ?>">
             </div>
             <div class="ui icon input" style="margin-top:0;display:none;">
-              <input type="text" name="modify-task-status" id="modify-task-status" value="<?= $task_data['status'] ?>">
+              <input type="text" name="modify-task-status" id="modify-task-status" value="<?= htmlspecialchars($task_data['status']) ?>">
             </div>
             <div id="modify-rating-container" style="margin-bottom:20px;text-align:right;">
               <span>Priorité :  </span><div class="ui star rating active" data-rating="<?= $task_data['priority'] ?>" data-max-rating="3"></div>
@@ -71,18 +71,18 @@
             </div>
             <div>Titre</div>
             <div class="ui icon input" style="margin-top:0;">
-              <input type="text" name="modify-task-title" id="modify-task-title" placeholder="Titre" value="<?= $task_data['title'] ?>">
+              <input type="text" name="modify-task-title" id="modify-task-title" placeholder="Titre" value="<?= htmlspecialchars($task_data['title']) ?>">
             </div>
             <div class="field ui reply form" style="margin-top:20px;">
               <span>Description</span>
-              <textarea style="height:100px;width:100%;" id="modify-task-description" name="modify-task-description"><?= $task_data['description'] ?></textarea>
+              <textarea style="height:100px;width:100%;" id="modify-task-description" name="modify-task-description"><?= htmlspecialchars($task_data['description']) ?></textarea>
             </div>
             <div style="margin-top:20px;">Responsable</div>
             <div class="ui icon input" id="modify-task-assignees-list" style="margin-top:0;">
               <select class="ui selection dropdown" style="font-size:small;" id="modify-task-assignee" name="modify-task-assignee">
                 <option value=""></option>
                 <?php for ($i=0;$i<count($members_list);$i++){ ?>
-                  <option <?php if ($members_list[$i]['id']==$task_data['assignee']){ echo 'selected'; }?> value="<?= $members_list[$i]['id'] ?>"><?= $members_list[$i]['fullname'] ?></option>
+                  <option <?php if ($members_list[$i]['id']==$task_data['assignee']){ echo 'selected'; }?> value="<?= $members_list[$i]['id'] ?>"><?= htmlspecialchars($members_list[$i]['fullname']) ?></option>
                 <?php  } ?>
               </select>
             </div>

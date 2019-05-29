@@ -9,9 +9,9 @@
           <?php } ?>
           <?php for ($i = 0; $i < count($teams); $i++) { ?>
             <?php if (isset($team) AND $team==$teams[$i]['id']){ ?>
-              <option selected value="<?= $teams[$i]['id'] ?>"><?= $teams[$i]['name'] ?></option>
+              <option selected value="<?= $teams[$i]['id'] ?>"><?= htmlspecialchars($teams[$i]['name']) ?></option>
             <?php }else{ ?>
-              <option value="<?= $teams[$i]['id'] ?>"><?= $teams[$i]['name'] ?></option>
+              <option value="<?= $teams[$i]['id'] ?>"><?= htmlspecialchars($teams[$i]['name']) ?></option>
             <?php } ?>
           <?php } ?>
         </select>

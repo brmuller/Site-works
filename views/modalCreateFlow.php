@@ -14,7 +14,7 @@
           <?php if (count($teams)>0){ ?>
               <select name="flow-team-name" id="flow-team-name" class="ui selection dropdown" style="font-size:small;">
               <?php for ($i = 0; $i < count($teams); $i++) { ?>
-                <option value="<?= $teams[$i]['id'] ?>"><?= $teams[$i]['name'] ?></option>
+                <option value="<?= $teams[$i]['id'] ?>"><?= htmlspecialchars($teams[$i]['name']) ?></option>
               <?php } ?>
               </select>
             <?php }else{ ?>
