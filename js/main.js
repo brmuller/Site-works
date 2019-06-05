@@ -631,22 +631,24 @@ $( document ).ready(function() {
 
 
     //change status
-    $('#flow-steps .clickable').click(function () {
+
+    $(document).on("click", "#flow-steps .clickable", function() {
       // write new status in input box
       var new_status=$(this).prev().text().trim();
       $('#modify-task-status').val(new_status);
 
-      $('#flow-steps .active').next().removeClass('teal');
-      $('#flow-steps .active').next().addClass('grey');
-      $('#flow-steps .active').next().addClass('clickable');
+      $('#flow-steps .active').next().next().removeClass('teal');
+      $('#flow-steps .active').next().next().addClass('grey');
+      $('#flow-steps .active').next().next().addClass('clickable');
 
       $('#flow-steps .active').removeClass('active');
 
       $(this).removeClass('grey');
       $(this).addClass('teal');
       $(this).removeClass('clickable');
-      $(this).prev().addClass('active');
+      $(this).prev().prev().addClass('active');
     });
+
 
 
     //task modification form submit check

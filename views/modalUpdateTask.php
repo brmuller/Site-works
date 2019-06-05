@@ -43,9 +43,11 @@
             <div class="row step">
               <?php if ($status_list[$i]['id']==$task_data['status']){ ?>
                 <div class="step title active"> <?= htmlspecialchars($status_list[$i]['name']) ?></div>
+                <div class="transition hidden"><?= htmlspecialchars($status_list[$i]['id']) ?></div>
                 <span class="ui teal circular label"><?= ($i+1) ?></span>
               <?php }else{ ?>
                 <div class="step title"> <?= htmlspecialchars($status_list[$i]['name']) ?></div>
+                <div class="transition hidden"><?= htmlspecialchars($status_list[$i]['id']) ?></div>
                 <span class="ui grey circular label clickable"> <?= ($i+1) ?></span>
               <?php } ?>
             </div>
