@@ -631,7 +631,6 @@ $( document ).ready(function() {
 
 
     //change status
-
     $(document).on("click", "#flow-steps .clickable", function() {
       // write new status in input box
       var new_status=$(this).prev().text().trim();
