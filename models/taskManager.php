@@ -264,13 +264,13 @@ class taskManager extends Manager
 
     if($filter==""){
       $str_query='SELECT task.id AS id, task.title AS title, user.fullname AS fullname,
-        task.status as status, task.priority as priority FROM task, user WHERE task.assignee=user.id AND
-        team= ? AND is_closed=0 ORDER BY last_modification_date DESC limit '.MAX_TASK_ROWS.' OFFSET '.$offset_p;
+        status.name as status, task.priority as priority FROM task, user, status WHERE task.assignee=user.id AND
+        task.status=status.id AND team= ? AND is_closed=0 ORDER BY last_modification_date DESC limit '.MAX_TASK_ROWS.' OFFSET '.$offset_p;
 
     }else{
       $str_query='SELECT task.id AS id, task.title AS title, user.fullname AS fullname,
-        task.status as status, task.priority as priority FROM task, user WHERE task.assignee=user.id AND
-        team= ? AND is_closed=0 AND (title LIKE "%"?"%" OR user.fullname LIKE "%"?"%" OR status LIKE "%"?"%")
+        status.name as status, task.priority as priority FROM task, user, status WHERE task.assignee=user.id AND
+        task.status=status.id AND team= ? AND is_closed=0 AND (title LIKE "%"?"%" OR user.fullname LIKE "%"?"%" OR status LIKE "%"?"%")
         ORDER BY last_modification_date DESC limit '.MAX_TASK_ROWS.' OFFSET '.$offset_p;
 
     }
