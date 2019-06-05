@@ -41,11 +41,11 @@
       <div class="four wide column" id="flow-steps" style="text-align:center;">
         <?php for ($i = 0; $i < count($status_list); $i++) { ?>
             <div class="row step">
-              <?php if ($status_list[$i]==$task_data['status']){ ?>
-                <div class="step title active"> <?= htmlspecialchars($status_list[$i]) ?></div>
+              <?php if ($status_list[$i]['id']==$task_data['status']){ ?>
+                <div class="step title active"> <?= htmlspecialchars($status_list[$i]['name']) ?></div>
                 <span class="ui teal circular label"><?= ($i+1) ?></span>
               <?php }else{ ?>
-                <div class="step title"> <?= htmlspecialchars($status_list[$i]) ?></div>
+                <div class="step title"> <?= htmlspecialchars($status_list[$i]['name']) ?></div>
                 <span class="ui grey circular label clickable"> <?= ($i+1) ?></span>
               <?php } ?>
             </div>

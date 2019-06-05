@@ -56,11 +56,14 @@ class flowManager extends Manager
     $status_list=array();
 
     //get list of status for the task
-    $req=$bdd->prepare('SELECT position, name FROM status WHERE id_flow= ?');
+    $req=$bdd->prepare('SELECT id, position, name FROM status WHERE id_flow= ?');
     $req->execute(array($flow_id));
     if ($req->rowCount()){
       while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
-        $status_list[$row['position']]=$row['name'];
+        $status_list[$row['position']]=array(
+          "id" => $row['id'],
+          "name" => $row['name']
+        );
       }
     }
 
