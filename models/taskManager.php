@@ -133,12 +133,12 @@ class taskManager extends Manager
     }
 
     //get task status
-    $req=$bdd->prepare('SELECT status.name AS status_name FROM status, flow WHERE flow.id=status.id_flow AND status.position=0 AND flow.id= ?');
+    $req=$bdd->prepare('SELECT status.id AS status_id FROM status, flow WHERE flow.id=status.id_flow AND status.position=0 AND flow.id= ?');
     $req->execute(array($flow));
 
     if ($req->rowCount()){
       $row = $req->fetch();
-      $status=$row['status_name'];
+      $status=$row['status_id'];
     }
 
     $creator=$_SESSION['id'];
