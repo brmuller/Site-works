@@ -456,7 +456,7 @@ $( document ).ready(function() {
       var flow = $.trim($('#create-task-flow').val());
       var title = $.trim($('#create-task-title').val());
       var description = $.trim($('#create-task-description').val());
-      var assignee = $.trim($('#create-task-description').val());
+      var assignee = $.trim($('#create-task-assignee').val());
       var target = $('#create-task-target').val();
 
 
@@ -469,6 +469,8 @@ $( document ).ready(function() {
           $('#modal-create-task').find(".error").text("Veuillez saisir un titre.");
       }else if (target===''){
           $('#modal-create-task').find(".error").text("Veuillez saisir une date d'échéance.");
+      }else if (assignee===''){
+          $('#modal-create-task').find(".error").text("Veuillez sélectionner un responsable.");
       }else {
         var team_selected=$('#team-selection').value
         $('#form-create-task').append("<input type='hidden' name='team-selected' value='"+team_selected+"' />");

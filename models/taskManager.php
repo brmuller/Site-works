@@ -262,11 +262,16 @@ class taskManager extends Manager
 
     //1) get results Count
     if($filter==""){
-      $str_query='SELECT COUNT(*) AS nb_rows FROM task, user WHERE task.assignee=user.id AND team= ? AND is_closed=0';
+      $str_query='SELECT COUNT(*) AS nb_rows
+      FROM task
+      WHERE team= ? AND is_closed=0';
       $params=array($team_id);
     }else{
-      $str_query='SELECT COUNT(*) AS nb_rows FROM task, user WHERE task.assignee=user.id AND
-        team= ? AND is_closed=0 AND (title LIKE "%"?"%" OR user.fullname LIKE "%"?"%" OR status LIKE "%"?"%")';
+      $str_query='SELECT COUNT(*) AS nb_rows
+      FROM task
+      LEFT JOIN user
+      ON task.assignee=user.id
+      WHERE team= ? AND is_closed=0 AND (title LIKE "%"?"%" OR user.fullname LIKE "%"?"%" OR status LIKE "%"?"%")';
       $params=array($team_id,$filter,$filter,$filter);
     }
 
@@ -285,16 +290,26 @@ class taskManager extends Manager
     $tasks_list=array();
 
     if($filter==""){
-      $str_query='SELECT task.id AS id, task.title AS title, user.fullname AS fullname,
-        status.name as status, task.priority as priority FROM task, user, status WHERE task.assignee=user.id AND
-        task.status=status.id AND team= ? AND is_closed=0 ORDER BY last_modification_date DESC limit '.MAX_TASK_ROWS.' OFFSET '.$offset_p;
+      $str_query='SELECT task.id AS id, task.title AS title, IFNULL(user.fullname,"") AS fullname,
+      status.name as status, task.priority as priority
+      FROM task
+      LEFT JOIN user
+      ON task.assignee=user.id
+      LEFT JOIN status
+      ON task.status=status.id
+      WHERE team= ? AND is_closed=0
+      ORDER BY last_modification_date DESC limit '.MAX_TASK_ROWS.' OFFSET '.$offset_p;
 
     }else{
-      $str_query='SELECT task.id AS id, task.title AS title, user.fullname AS fullname,
-        status.name as status, task.priority as priority FROM task, user, status WHERE task.assignee=user.id AND
-        task.status=status.id AND team= ? AND is_closed=0 AND (title LIKE "%"?"%" OR user.fullname LIKE "%"?"%" OR status LIKE "%"?"%")
+      $str_query='SELECT task.id AS id, task.title AS title, IFNULL(user.fullname,"") AS fullname,
+        status.name as status, task.priority as priority
+        FROM task
+        LEFT JOIN user
+        ON task.assignee=user.id
+        LEFT JOIN status
+        ON task.status=status.id
+        WHERE team= ? AND is_closed=0 AND (title LIKE "%"?"%" OR user.fullname LIKE "%"?"%" OR status LIKE "%"?"%")
         ORDER BY last_modification_date DESC limit '.MAX_TASK_ROWS.' OFFSET '.$offset_p;
-
     }
     $req=$bdd->prepare($str_query);
     $req->execute($params);

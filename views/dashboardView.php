@@ -21,21 +21,27 @@
             </div>
           </div>
           <?php if (count($teams)>0){ ?>
+            <?php if (count($teams)>MAX_TEAM_ROWS){ ?>
               <?php for ($i = 0; $i < MAX_TEAM_ROWS; $i++){ ?>
                 <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= htmlspecialchars($teams[$i]['name']) ?></a>
               <?php } ?>
-          <?php  } ?>
-          <?php if (count($teams)>MAX_TEAM_ROWS){ ?>
-            <div class="ui dropdown item">
-              <span style="font-weight:bold;color:darkgrey;">Plus</span>
-              <i class="dropdown icon"></i>
-              <div class="menu transition hidden">
-                <?php for ($i = MAX_TEAM_ROWS; $i < count($teams); $i++){ ?>
-                  <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= htmlspecialchars($teams[$i]['name']) ?></a>
-                <?php } ?>
+            <?php }else{ ?>
+              <?php for ($i = 0; $i < count($teams); $i++){ ?>
+                <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= htmlspecialchars($teams[$i]['name']) ?></a>
+              <?php } ?>
+            <?php } ?>
+            <?php if (count($teams)>MAX_TEAM_ROWS){ ?>
+              <div class="ui dropdown item">
+                <span style="font-weight:bold;color:darkgrey;">Plus</span>
+                <i class="dropdown icon"></i>
+                <div class="menu transition hidden">
+                  <?php for ($i = MAX_TEAM_ROWS; $i < count($teams); $i++){ ?>
+                    <a href="/workflow/dashboard/updateteam/<?= $teams[$i]['id'] ?>" class="item"><?= htmlspecialchars($teams[$i]['name']) ?></a>
+                  <?php } ?>
+                </div>
               </div>
-            </div>
-          <?php } ?>
+            <?php } ?>
+          <?php  } ?>
         </div>
       </div>
       <div class="item">
@@ -48,20 +54,26 @@
             </div>
           </div>
           <?php if (count($flows)>0){ ?>
+            <?php if (count($flows)>MAX_FLOW_ROWS){ ?>
               <?php for ($i = 0; $i < MAX_FLOW_ROWS; $i++){ ?>
                 <a href="/workflow/dashboard/updateflow/<?= $flows[$i]['id'] ?>" class="item"><?= htmlspecialchars($flows[$i]['name']) ?></a>
               <?php } ?>
-          <?php  } ?>
-          <?php if (count($flows)>MAX_FLOW_ROWS){ ?>
-          <div class="ui dropdown item">
-            <span style="font-weight:bold;color:darkgrey;">Plus</span>
-            <i class="dropdown icon"></i>
-            <div class="menu transition hidden">
-              <?php for ($i = MAX_FLOW_ROWS; $i < count($flows); $i++){ ?>
+            <?php }else{ ?>
+              <?php for ($i = 0; $i < count($flows); $i++){ ?>
                 <a href="/workflow/dashboard/updateflow/<?= $flows[$i]['id'] ?>" class="item"><?= htmlspecialchars($flows[$i]['name']) ?></a>
               <?php } ?>
-            </div>
-          </div>
+            <?php } ?>
+            <?php if (count($flows)>MAX_FLOW_ROWS){ ?>
+              <div class="ui dropdown item">
+                <span style="font-weight:bold;color:darkgrey;">Plus</span>
+                <i class="dropdown icon"></i>
+                <div class="menu transition hidden">
+                  <?php for ($i = MAX_FLOW_ROWS; $i < count($flows); $i++){ ?>
+                    <a href="/workflow/dashboard/updateflow/<?= $flows[$i]['id'] ?>" class="item"><?= htmlspecialchars($flows[$i]['name']) ?></a>
+                  <?php } ?>
+                </div>
+              </div>
+            <?php } ?>
           <?php } ?>
         </div>
       </div>

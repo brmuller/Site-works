@@ -146,9 +146,31 @@ class teamManager extends Manager
         );
       }
     }
-    $bdd=null;
 
+    $bdd=null;
     return $users;
+  }
+
+
+
+
+  //get list of members in team
+  public function getTeamFlows($team_id){
+
+    //get list of users
+    $bdd = $this->connectDB();
+    $req=$bdd->prepare('SELECT id,name FROM flow WHERE team_id= ?');
+
+    $flows=array();
+    $req->execute(array($team_id));
+    if ($req->rowCount()){
+      while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        $flows[]=$row;
+      }
+    }
+
+    $bdd=null;
+    return $flows;
   }
 
 

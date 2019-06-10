@@ -126,6 +126,7 @@
     $team=$_SESSION['team'];
     $tasks=$task_manager->getTasksList($team);
     $members_count=count($team_manager->getTeamMembers($team));
+    $team_flows=$team_manager->getTeamFlows($team);
     $tasks_list=$tasks['list'];
     $nb_rows=count($tasks_list);
     $nb_pages=ceil($tasks['rows_count']/MAX_TASK_ROWS);
