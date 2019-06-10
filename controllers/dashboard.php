@@ -137,6 +137,7 @@
   $avatar=$_SESSION['avatar'];
   $teams=$team_manager->getTeams();
   $flows=$flow_manager->getUserFlows();
+  $my_tasks=$task_manager->getUserTasksCount();
 
   //define items to include in the page view
   $main_view='dashboardView.php'; //main content

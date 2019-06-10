@@ -4,7 +4,7 @@
       <div class="item">
         <div class="header">
           Tâches
-          <div class="ui teal left pointing label" style="margin-left: 8em;">4</div>
+          <div class="ui teal left pointing label" style="margin-left: 8em;"><?= $my_tasks ?></div>
         </div>
         <div class="menu">
           <a href="/workflow/dashboard/newtask" class="item"><i class="plus icon"></i>Nouvelle tâche</a>

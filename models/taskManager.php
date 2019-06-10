@@ -231,6 +231,28 @@ class taskManager extends Manager
 
 
 
+  //get user tasks count
+  public function getUserTasksCount(){
+    $bdd = $this->connectDB();
+    $user_id=$_SESSION['id'];
+
+    //get tasks count
+    $req=$bdd->prepare('SELECT COUNT(*) as nb_tasks FROM task WHERE assignee= ?');
+    $req->execute(array($user_id));
+
+    $count=0;
+    if ($req->rowCount()){
+      $row = $req->fetch();
+      $count=$row['nb_tasks'];
+    }
+
+    $bdd=null;
+    return $count;
+  }
+
+
+
+
   //get list of tasks attached to team
   public function getTasksList($team_id, $filter="", $page=1){
     $bdd = $this->connectDB();
