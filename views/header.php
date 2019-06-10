@@ -9,9 +9,9 @@
         <a class="<?php if ($current_page['id']=='history'){echo 'active';} ?> item" href="/workflow/history">
           Historique
         </a>
-        <a class="<?php if ($current_page['id']=='stats'){echo 'active';} ?> item" href="/workflow/stats">
+        <!--<a class="<?php if ($current_page['id']=='stats'){echo 'active';} ?> item" href="/workflow/stats">
           Stats
-        </a>
+        </a>-->
       </div>
       <?php } ?>
       <div class="header-main-content">

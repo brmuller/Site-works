@@ -65,13 +65,6 @@
           <?php } ?>
         </div>
       </div>
-      <div class="item">
-        <div class="header">Stats</div>
-        <div class="menu">
-          <a class="item">E-mail Support</a>
-          <a class="item">FAQs</a>
-        </div>
-      </div>
     </div>
   </div>
   <div class="twelve wide column"> <!-- Dashboard -->
