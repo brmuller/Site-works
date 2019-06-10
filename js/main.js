@@ -147,6 +147,7 @@ $( document ).ready(function() {
     return false;
   });
 
+
   //add new flow
   $('#modal-create-flow').find(".positive.button").click(function () {
     // Get the Login Data value and trim it
@@ -168,6 +169,36 @@ $( document ).ready(function() {
           $('#modal-create-flow').find(".error").text("Ce nom de flow existe déjà.");
         }else{
           document.forms['form-create-flow'].submit();
+        }
+      }
+
+      ajaxCall(data,func);
+    }
+  });
+
+
+
+  //modify flow
+  $('#modal-modify-flow').find(".positive.button").click(function () {
+    // Get the Login Data value and trim it
+    var flow_name = $.trim($('#modify-flow-name').val());
+    var team_id = $.trim($('#modify-flow-team-id').val());
+
+    if (flow_name  === '') {
+      //check if field is empty
+      $('#modal-modify-flow').find(".error").text("Veuillez saisir un nom de flow.");
+    }else {
+      var data = {
+        "action": "checkflowname" ,
+        "flow_name": flow_name ,
+        "team_id": team_id
+      };
+
+      var func = function(data) {
+        if (data.flowExists){
+          $('#modal-modify-flow').find(".error").text("Ce nom de flow existe déjà.");
+        }else{
+          document.forms['form-modify-flow'].submit();
         }
       }
 

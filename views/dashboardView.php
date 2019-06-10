@@ -49,7 +49,7 @@
           </div>
           <?php if (count($flows)>0){ ?>
               <?php for ($i = 0; $i < MAX_FLOW_ROWS; $i++){ ?>
-                <a class="item"><?= htmlspecialchars($flows[$i]) ?></a>
+                <a href="/workflow/dashboard/updateflow/<?= $flows[$i]['id'] ?>" class="item"><?= htmlspecialchars($flows[$i]['name']) ?></a>
               <?php } ?>
           <?php  } ?>
           <?php if (count($flows)>MAX_FLOW_ROWS){ ?>
@@ -58,7 +58,7 @@
             <i class="dropdown icon"></i>
             <div class="menu transition hidden">
               <?php for ($i = MAX_FLOW_ROWS; $i < count($flows); $i++){ ?>
-                <a class="item"><?= htmlspecialchars($flows[$i]) ?></a>
+                <a href="/workflow/dashboard/updateflow/<?= $flows[$i]['id'] ?>" class="item"><?= htmlspecialchars($flows[$i]['name']) ?></a>
               <?php } ?>
             </div>
           </div>

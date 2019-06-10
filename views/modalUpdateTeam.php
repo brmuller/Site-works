@@ -15,15 +15,15 @@
     </div>
     <div class="ui grid" style="margin:0;">
       <div class="seven wide column">
-        <div class="ui comments">
-          <h3 class="ui dividing header">Membres</h3>
-          <div class="scrolling content" style="height:160px;overflow:auto;">
+        <h3 class="ui dividing header">Membres</h3>
+        <div class="scrolling content" style="height:160px;overflow:auto;">
+          <div class="ui divided list">
           <?php for ($i = 0; $i < count($team_members); $i++) { ?>
-              <div class="comment">
-                <a class="avatar"><img src="/workflow/static/avatar/<?= $team_members[$i]['avatar'] ?>.jpg"></a>
+              <div class="item">
+                <img class="ui avatar image" src="/workflow/static/avatar/<?= $team_members[$i]['avatar'] ?>.jpg">
                 <div class="content">
-                  <a class="author"><?= htmlspecialchars($team_members[$i]['fullname']) ?></a>
-                  <div class="text">Depuis le <?= $team_members[$i]['join_date'] ?></div>
+                  <a class="header"><?= htmlspecialchars($team_members[$i]['fullname']) ?></a>
+                  <div class="description">Depuis le <?= $team_members[$i]['join_date'] ?></div>
                 </div>
               </div>
           <?php  } ?>

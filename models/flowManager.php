@@ -50,6 +50,88 @@ class flowManager extends Manager
 
 
 
+  //check if user is allowed to access a team (user can only access teams he belongs to)
+  public function accessFlowAuth($flow_id){
+    $bdd = $this->connectDB();
+    $user_id=$_SESSION['id'];
+
+    $auth=false;
+
+    $req=$bdd->prepare('SELECT * FROM flow WHERE id=? AND creator_id= ?');
+    $req->execute(array($flow_id,$user_id));
+
+    if ($req->rowCount()){
+      $auth=true;
+    }
+
+    $bdd=null;
+    return $auth;
+  }
+
+
+
+
+  //update flow data
+  public function updateFlow(){
+    //date_default_timezone_set('Europe/Paris');
+    $bdd = $this->connectDB();
+
+    $flow_id=$_POST['modify-flow-id'];
+    $name=$_POST['modify-flow-name'];
+
+    //update record in table flow
+		$insertflow=$bdd->prepare('UPDATE flow SET name=? WHERE id=?');
+		$insertflow->execute(array($name,$flow_id));
+
+    //update record in table status
+    foreach($_POST as $key=>$val){
+      if (strpos($key,'status-')==0){
+        $status_id=explode('-',$key)[1];
+        $insertstatus=$bdd->prepare('UPDATE status SET name=? WHERE id=?');
+    		$insertstatus->execute(array($val,$status_id));
+      }
+    }
+
+    //update history
+    //$history_manager=new historyManager();
+    //$history_manager->addEvent($team_id,'team_update');
+
+    $bdd=null;
+
+	}
+
+
+
+
+  public function getFlowData($flow_id){
+    $bdd = $this->connectDB();
+
+    $req=$bdd->prepare('SELECT flow.team_id as team_id, flow.name as flow_name, team.name as team_name, fullname FROM flow,team,user
+      WHERE flow.team_id=team.id AND flow.creator_id=user.id AND flow.id= ?');
+    $req->execute(array($flow_id));
+
+    $flow_data=array();
+    if ($req->rowCount()){
+      $row = $req->fetch();
+      $flow_data =array(
+        "name" => $row['flow_name'],
+        "team" => $row['team_name'],
+        "team_id" => $row['team_id'],
+        "creator" => $row['fullname']
+      );
+      $status_list=$this->getStatusList($flow_id);
+      if (count($status_list)>0) {
+        $flow_data['status']=$status_list;
+      }
+    }
+
+    $bdd=null;
+    return $flow_data;
+  }
+
+
+
+
   //get list of status attached to flow
   public function getStatusList($flow_id){
     $bdd = $this->connectDB();
@@ -109,12 +191,12 @@ class flowManager extends Manager
 
     //insert record in table team
     $bdd = $this->connectDB();
-    $req=$bdd->prepare('SELECT * FROM flow WHERE creator_id= ?');
+    $req=$bdd->prepare('SELECT id,name FROM flow WHERE creator_id= ?');
 
     $flows_list=array();
     if ($req->execute(array($id_user))){
       while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
-        $flows_list[]=$row['name'];
+        $flows_list[]=$row;
       }
     }
     $bdd=null;

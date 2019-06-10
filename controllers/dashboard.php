@@ -32,6 +32,7 @@
   if (isset($_POST['team-name-join'])){$team_manager->joinTeam();}
   if (isset($_POST['modify-task-title'])){$task_manager->updateTask();}
   if (isset($_POST['modify-team-name'])){$team_manager->updateTeam();}
+  if (isset($_POST['modify-flow-name'])){$flow_manager->updateFlow();}
 
 
   //handle GETS on page
@@ -75,6 +76,17 @@
             $team_data=$team_manager->getTeamData($team_id);
             $team_members=$team_manager->getTeamMembers($team_id);
             $update_team=true;
+          }
+        }
+        break;
+
+      case "updateflow":
+        if (isset($id)){
+          $flow_id=$id;
+          //check if user is allowed to access the flow (only access flows that he created)
+          if ($flow_manager->accessFlowAuth($flow_id)){
+            $flow_data=$flow_manager->getFlowData($flow_id);
+            $update_flow=true;
           }
         }
         break;
@@ -134,6 +146,7 @@
   if (isset($new_task) && $new_task){$modals[]='modalCreateTask.php';}
   if (isset($update_task) && $update_task){$modals[]='modalUpdateTask.php';}
   if (isset($update_team) && $update_team){$modals[]='modalUpdateTeam.php';}
+  if (isset($update_flow) && $update_flow){$modals[]='modalUpdateFlow.php';}
 
 
   //call template and display above items in the page
