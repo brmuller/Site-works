@@ -26,7 +26,7 @@
     if ($type=='team'){
       $team_id=$id;
       //check if user is allowed to access the team
-      if ($team_manager->accessTeamAuth($team_id)){
+      if ($team_manager->accessTeamAuth($team_id,$_SESSION['id'])){
         $_SESSION['team']=$team_id;
       }
     }

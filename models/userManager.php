@@ -120,6 +120,28 @@ class userManager extends Manager
 
 
 
+  //check if user is recorded in DB
+  public function getUserId($email,$password){
+    $bdd = $this->connectDB();
+    $hash_password=sha1($password);
+
+    $user_id='';
+    //$req=$bdd->query("SELECT * FROM user");
+    $req=$bdd->prepare('SELECT * FROM user WHERE email= ? AND password= ?');
+    $req->execute(array($email,$hash_password));
+
+    if ($req->rowCount()){
+      $row=$req->fetch();
+      $user_id=$row['id'];
+    }
+
+    $bdd=null;
+    return $user_id;
+  }
+
+
+
+
   //check if email is already recorded
   public function checkEmail($email){
     $bdd = $this->connectDB();

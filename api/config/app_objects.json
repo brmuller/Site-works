@@ -1,0 +1,20 @@
+{
+  "objects":{
+    "tasks":{
+      "gettasks":true,
+      "createtask":false,
+      "updatetask":false,
+      "deletetask":false
+    },
+    "teams":{
+      "getteam":false,
+      "createteam":false,
+      "updateteam":false
+    },
+    "flows":{
+      "getflow":false,
+      "createflow":false,
+      "updateflow":false
+    }
+  }
+}

@@ -25,6 +25,25 @@ class teamManager extends Manager
 
 
 
+  public function getTeamId($team_name){
+    $bdd = $this->connectDB();
+
+    $team_id='';
+    $req=$bdd->prepare('SELECT id FROM team WHERE name= ?');
+    $req->execute(array($team_name));
+
+    if ($req->rowCount()){
+      $row = $req->fetch();
+      $team_id = $row['id'];
+    }
+
+    $bdd=null;
+    return $team_id;
+  }
+
+
+
+
   //check if team name is in DB
   public function checkTeamExists($team_name){
     $bdd = $this->connectDB();
@@ -45,9 +64,8 @@ class teamManager extends Manager
 
 
   //check if user is allowed to access a team (user can only access teams he belongs to)
-  public function accessTeamAuth($team_id){
+  public function accessTeamAuth($team_id,$user_id){
     $bdd = $this->connectDB();
-    $user_id=$_SESSION['id'];
 
     $auth=false;
 

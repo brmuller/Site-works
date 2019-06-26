@@ -45,7 +45,7 @@
         if (isset($id)){
           $team_id=$id;
           //check if user is allowed to access the team
-          if ($team_manager->accessTeamAuth($team_id)){
+          if ($team_manager->accessTeamAuth($team_id,$_SESSION['id'])){
             $_SESSION['team']=$id;
           }
         }
@@ -72,7 +72,7 @@
         if (isset($id)){
           $team_id=$id;
           //check if user is allowed to access the team
-          if ($team_manager->accessTeamAuth($team_id)){
+          if ($team_manager->accessTeamAuth($team_id,$_SESSION['id'])){
             $team_data=$team_manager->getTeamData($team_id);
             $team_members=$team_manager->getTeamMembers($team_id);
             $update_team=true;
@@ -115,7 +115,7 @@
         if (isset($id)){
           $team_id=$id;
           //check if user is allowed to access the team
-          if ($team_manager->accessTeamAuth($team_id)){
+          if ($team_manager->accessTeamAuth($team_id,$_SESSION['id'])){
             $task_manager->exportTasksCSV($team_id);
           }
         }
@@ -139,6 +139,7 @@
   $teams=$team_manager->getTeams();
   $flows=$flow_manager->getUserFlows();
   $my_tasks=$task_manager->getUserTasksCount();
+  $best_team=$task_manager->getTeamWithMostTasks();
 
   //define items to include in the page view
   $main_view='dashboardView.php'; //main content

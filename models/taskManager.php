@@ -54,6 +54,40 @@ class taskManager extends Manager
 
 
 
+
+  public function getTeamWithMostTasks(){
+    $bdd = $this->connectDB();
+
+    //get task status
+    $req=$bdd->prepare('SELECT team.name as name, COUNT(*) as nb_tasks
+                        FROM task,team
+                        WHERE task.team=team.id
+                        GROUP BY team');
+    $req->execute();
+
+    $team='';
+    $max=0;
+    if ($req->rowCount()){
+      while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        if ($row['nb_tasks']>$max){
+          $max=$row['nb_tasks'];
+          $team=$row['name'];
+        }
+      }
+    }
+
+    $team_data=array(
+      "name" => $team,
+      "task_count" => $max
+    );
+
+    $bdd=null;
+    return $team_data;
+
+  }
+
+
+
   //export tasks to CSV
   public function exportTasksCSV($team_id){
 
