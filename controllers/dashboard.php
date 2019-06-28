@@ -134,7 +134,7 @@
   }
 
 
-  $strname=ucfirst(strtolower($_SESSION['firstname']));
+  $strname=ucfirst($_SESSION['firstname']).' '.ucfirst($_SESSION['lastname']);
   $avatar=$_SESSION['avatar'];
   $teams=$team_manager->getTeams();
   $flows=$flow_manager->getUserFlows();

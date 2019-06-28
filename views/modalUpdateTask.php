@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="ui grid" style="margin:0;">
+    <div class="ui stackable two column grid" style="margin:0;">
       <div class="four wide column" id="flow-steps" style="text-align:center;">
         <?php for ($i = 0; $i < count($status_list); $i++) { ?>
             <div class="row step">

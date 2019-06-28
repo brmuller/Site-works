@@ -1,5 +1,5 @@
-<div class="ui grid">
-  <div class="four wide column"> <!-- Menu -->
+<div class="ui stackable two column grid">
+  <div class="four wide column medium-screen-hide"> <!-- Menu -->
     <div class="ui vertical menu">
       <div class="item">
         <div class="header">
@@ -79,12 +79,12 @@
       </div>
     </div>
   </div>
-  <div class="twelve wide column"> <!-- Dashboard -->
+  <div class="twelve wide column" id="dashboard"> <!-- Dashboard -->
     <div class="row">
       <div id="tasks-header" style="margin-bottom: 10px;">
-        <div class="ui grid" style="margin: auto;">
+        <div class="ui stackable two column grid" style="margin: auto;">
           <div class="eight wide column" style="position:relative;padding-bottom:0;">
-            <div style="position: absolute;bottom: 0;left: 0;">
+            <div id="tasks-header-elt" style="position: absolute;bottom: 0;left: 0;">
               <span style="margin-right:10px;">Equipe: </span>
               <span style="font-size:small;">
                 <?php if (count($teams)>0){ ?>
@@ -116,7 +116,7 @@
       </div>
     </div>
     <?php if (isset($tasks_list)){ ?>
-    <div class="ui grid"  id="team-stats" style="margin-top:10px;">
+    <div class="ui stackable two column grid"  id="team-stats" style="margin-top:10px;">
       <div class="twelve wide column">
         <h3 class="ui dividing header">
           Tâches
@@ -152,7 +152,7 @@
     <div class="row" id="task-table-container">
     <?php if ($nb_rows>0){ ?>
       <table class="ui small selectable celled table" id="task-table">
-        <thead>
+        <thead class="mobile-screen-hide">
           <tr>
             <th>Titre</th>
             <th>Responsable</th>
@@ -196,7 +196,7 @@
       </div>
     <?php } ?>
     </div>
-    <div class="ui grid" style="margin-top:10px;">
+    <div class="ui stackable two column grid" style="margin-top:10px;">
       <div class="ten wide column">
         <h3 class="ui dividing header">Historique</h3>
         <?php if (isset($events_list)){ ?>

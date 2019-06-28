@@ -3,6 +3,57 @@
 	background: rgb(232,232,232);
 }
 
+@media screen and (max-width: 1100px) {
+  .medium-screen-hide{
+		display: none !important;
+  }
+
+	.medium-screen-show{
+		display: block !important;
+	}
+
+	#dashboard{
+		width: 100% !important;
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+  .mobile-screen-hide{
+		display: none !important;
+  }
+	.main-content.site-container{
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	#header .grid-wrapper{
+		margin-left: 1rem;
+		margin-right: 1rem;
+	}
+
+	#tasks-header-elt{
+		left:1rem !important;
+	}
+
+	.header-logo img{
+		height: 25px !important;
+	}
+
+	.ui.modal{
+		width:100% !important;
+		height:100% !important;
+		margin-top:0 !important;
+		margin-left:0 !important;
+		top:0;
+		left: 0;
+	}
+
+	.ui.modal .scrolling.content{
+		/*height:66% !important;*/
+	}
+}
+
 .menu-header{
 	font-weight:700;
 	color:black;
@@ -103,7 +154,7 @@ form .ui.input:not(:first-child){
 }
 
 .grid-wrapper{
-	margin-left :20%;
+	margin-left :10%;
 	margin-right :10%;
 	height: 60px;
 }

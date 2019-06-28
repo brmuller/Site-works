@@ -33,7 +33,7 @@
 						break;
 
 					default:
-						$controller="error";
+						$controller="dashboard";
 						break;
 				}
 			}else{

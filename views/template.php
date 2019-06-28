@@ -3,6 +3,7 @@
     <head>
       <title><?= $current_page['name']; ?></title>
 		  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 			<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 			<script type="text/javascript" src="/workflow/js/main.js"></script>
       <script type="text/javascript" src="/workflow/js/stats.js"></script>

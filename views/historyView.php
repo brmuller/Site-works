@@ -1,4 +1,4 @@
-<div class="ui grid">
+<div class="ui stackable two column grid">
   <div class="four wide column">
     <div style="margin-right:10px;">Equipe: </div>
     <div style="font-size:small;">
