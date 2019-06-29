@@ -18,10 +18,19 @@
 
 }
 
+.mobile-screen-show{
+	display: none !important;
+}
+
 @media screen and (max-width: 767px) {
   .mobile-screen-hide{
 		display: none !important;
   }
+
+	.mobile-screen-show{
+		display: block !important;
+  }
+
 	.main-content.site-container{
 		padding-left: 0;
 		padding-right: 0;

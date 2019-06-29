@@ -103,6 +103,21 @@ $( document ).ready(function() {
 
   //----------------------------------------------- Dashboard page --------------------------------------------------
 
+  $('#member-sub-header').click(function () {
+    // Get the Login Data value and trim it
+    if ($("#sub-header").is(":hidden")){
+      $( "#sub-header" ).show();
+      $( "#header" ).css("height","160px");
+      $( ".main-content.site-container" ).css("margin-top","160px");
+    }else{
+      $( "#sub-header" ).hide();
+      $( "#header" ).css("height","60px");
+      $( ".main-content.site-container" ).css("margin-top","60px");
+    }
+
+
+  });
+
   //dashboard left menu
   $( ".ui.dropdown.item" ).hover(
     function() {
