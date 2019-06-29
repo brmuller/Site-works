@@ -36,6 +36,38 @@ class userManager extends Manager
 
 
 
+  //generate username
+  public function getUserName($fn,$ln){
+    $bdd = $this->connectDB();
+    //get team id
+    $req=$bdd->prepare(
+      'SELECT username
+      FROM user
+      WHERE firstname= ? AND lastname=?
+      ORDER BY username DESC
+      LIMIT 1'
+    );
+    $req->execute(array($fn,$ln));
+
+    $username='';
+    if ($req->rowCount()){
+      $row = $req->fetch();
+      $last_un=$row['username'];
+      $last_id=explode(".",$last_un)[2];
+
+      $username = $fn.'.'.$ln.'.'.($last_id+1);
+    }else{
+      $username = $fn.'.'.$ln.'.1';
+    }
+
+    $bdd=null;
+    return $username;
+
+  }
+
+
+
+
   //connect to dashboard
   public function connect($email,$password){
     $bdd = $this->connectDB();
@@ -76,13 +108,18 @@ class userManager extends Manager
 
   public function register($firstname,$lastname,$email,$password,$avatar){
     $bdd = $this->connectDB();
-
+    $firstname=strtolower(trim($firstname));
+    $lastname=strtolower(trim($lastname));
+    $email=strtolower(trim($email));
 		$fullname=ucfirst($firstname).' '.ucfirst($lastname);
-		$email=htmlspecialchars($_POST['email']);
+    $username=$this->getUserName($firstname,$lastname);
 		$hash_password=sha1($password);
 
-		$insertuser=$bdd->prepare('INSERT INTO user(password,firstname,lastname,fullname,email,avatar) VALUES(?,?,?,?,?,?)');
-		$insertuser->execute(array($hash_password,$firstname,$lastname,$fullname,$email,$avatar));
+		$insertuser=$bdd->prepare(
+      'INSERT INTO user(password,firstname,lastname,fullname,email,avatar,username)
+      VALUES(?,?,?,?,?,?,?)'
+    );
+		$insertuser->execute(array($hash_password,$firstname,$lastname,$fullname,$email,$avatar,$username));
 
 		$_SESSION['id']=$bdd->lastInsertId();  //PDO::lastInsertId()
 		$_SESSION['email']=$email;

@@ -263,7 +263,7 @@ class teamManager extends Manager
     $team_id=$row['id'];
 
     //insert record in table user_team
-		$insertteamuser=$bdd->prepare('INSERT INTO user_team(id_user,id_team,join_date) VALUES(?,?)');
+		$insertteamuser=$bdd->prepare('INSERT INTO user_team(id_user,id_team,join_date) VALUES(?,?,?)');
 		$insertteamuser->execute(array($user_id,$team_id,$join_date));
 
     //update history
