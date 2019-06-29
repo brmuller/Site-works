@@ -40,7 +40,7 @@
 
   $strname=ucfirst(strtolower($_SESSION['firstname']));
   $avatar=$_SESSION['avatar'];
-  $teams=$team_manager->getTeams();
+  $teams=$team_manager->getTeams($_SESSION['id']);
 
   //define items to include in the page view
   $main_view='historyView.php';

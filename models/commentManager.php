@@ -53,7 +53,8 @@ class commentManager extends Manager
           "text" => $row['comment'],
           "creation_date" => $row['creation_date'],
           "fullname" => $row['fullname'],
-          "avatar" => $row['avatar']
+          "avatar" => $row['avatar'],
+          "username" => $row['username']
         );
       }
     }

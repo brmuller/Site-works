@@ -195,18 +195,18 @@ class teamManager extends Manager
 
 
   //get list of teams joined by user
-  public function getTeams(){
-    if (!isset($_SESSION['id'])){
-      throw new Exception("l'id de l'utilisateur n'est pas défini");
-    }
-    $id_user=$_SESSION['id'];
+  public function getTeams($user_id){
 
     //insert record in table team
     $bdd = $this->connectDB();
-    $req=$bdd->prepare('SELECT team.id AS team_id, team.name AS team_name FROM user_team,team WHERE user_team.id_team=team.id AND id_user= ?');
+    $req=$bdd->prepare(
+      'SELECT team.id AS team_id, team.name AS team_name
+      FROM user_team,team
+      WHERE user_team.id_team=team.id AND id_user= ?'
+    );
 
     $teams_list=array();
-    if ($req->execute(array($id_user))){
+    if ($req->execute(array($user_id))){
       while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
         $teams_list[]=array(
           "id" => $row['team_id'],
@@ -214,8 +214,8 @@ class teamManager extends Manager
         );
       }
     }
-    $bdd=null;
 
+    $bdd=null;
     return $teams_list;
   }
 

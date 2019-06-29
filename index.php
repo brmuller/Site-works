@@ -1,14 +1,14 @@
 <?php
 	session_start();
 
-	$url='';
+	$page='';
 	if (isset($_GET['url']) && !empty($_GET['url'])){
 		$url=explode('/',$_GET['url']);
 		$page=$url[0];
 	}
 
 
-	if ($url !='' && $page=='api'){
+	if ($page=='api'){
 		//workflow/api/tasks/gettasks/equipe
 		//route to api manager
 		$object= (!empty($url[1])) ? $url[1] : '';
@@ -22,12 +22,12 @@
 		if (!empty($url[2])){$id=$url[2];}
 
 		if (isset($_SESSION['id'])) {
-			if ($url !=''){
+			if ($page !=''){
 				$controllers=array('dashboard','history','members');
-				if (in_array($url,$controllers)){
-					$controller=$url;
+				if (in_array($page,$controllers)){
+					$controller=$page;
 				}else{
-					$controller="dashboard";
+					$controller='pagenotfound';
 				}
 			}else{
 				$controller="dashboard";

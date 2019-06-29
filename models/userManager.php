@@ -15,22 +15,35 @@ class userManager extends Manager
     $user_data=array();
     if ($req->rowCount()){
       $row = $req->fetch();
-
-      $user_data = array(
-        "pwd" => $row['password'],
-        "firstname" => $row['firstname'],
-        "lastname" => $row['lastname'],
-        "fullname" => $row['fullname'],
-        "email" => $row['email'],
-        "avatar" => $row['avatar']
-      );
-
+      $user_data = $row;
     }
 
     $bdd=null;
-
     return $user_data;
 
+  }
+
+
+
+
+  public function getUserIdFromUserName($username){
+    $bdd = $this->connectDB();
+    //get team id
+    $req=$bdd->prepare(
+      'SELECT id
+      FROM user
+      WHERE username= ?'
+    );
+    $req->execute(array($username));
+
+    $user_id='';
+    if ($req->rowCount()){
+      $row = $req->fetch();
+      $user_id=$row['id'];
+    }
+
+    $bdd=null;
+    return $user_id;
   }
 
 

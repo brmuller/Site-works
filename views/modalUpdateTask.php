@@ -123,7 +123,7 @@
                   <div class="comment">
                     <a class="avatar"><img src="/workflow/static/avatar/<?= $comments[$i]['avatar'] ?>.jpg"></a>
                     <div class="content">
-                      <a class="author"><?= htmlspecialchars($comments[$i]['fullname']) ?></a>
+                      <a href="/workflow/members/<?= htmlspecialchars($comments[$i]['username']) ?>" class="author"><?= htmlspecialchars($comments[$i]['fullname']) ?></a>
                       <div class="metadata"><span class="date"><?= $comments[$i]['creation_date'] ?></span></div>
                       <div class="text"><?= nl2br(htmlspecialchars($comments[$i]['text'])) ?></div>
                       <div class="actions"><a class="reply">Répondre</a></div>
