@@ -23,18 +23,11 @@
 
 		if (isset($_SESSION['id'])) {
 			if ($url !=''){
-		    switch ($page) {
-					case "dashboard":
-		        $controller="dashboard";
-		        break;
-
-					case "history":
-						$controller="history";
-						break;
-
-					default:
-						$controller="dashboard";
-						break;
+				$controllers=array('dashboard','history','members');
+				if (in_array($url,$controllers)){
+					$controller=$url;
+				}else{
+					$controller="dashboard";
 				}
 			}else{
 				$controller="dashboard";

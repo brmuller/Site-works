@@ -86,6 +86,7 @@ class userManager extends Manager
       $_SESSION['firstname']=$data['firstname'];
       $_SESSION['lastname']=$data['lastname'];
       $_SESSION['avatar']=$data['avatar'];
+      $_SESSION['username']=$data['username'];
 
       header('Location: /workflow/dashboard/');
       exit;
@@ -127,6 +128,7 @@ class userManager extends Manager
     $_SESSION['firstname']=$firstname;
     $_SESSION['lastname']=$lastname;
 		$_SESSION['avatar']=$avatar;
+    $_SESSION['username']=$username;
 
     $bdd=null;
 		header('Location: /workflow/dashboard/');

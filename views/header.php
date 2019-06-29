@@ -54,29 +54,23 @@
         </div>
       </div>
     </div>
+    <?php if (isset($_SESSION['id'])){ ?>
     <div class="row" id="sub-header" style="display:none;">
       <div class="ui middle aligned selection list">
-        <div class="item">
+        <a href="/workflow/members/<?= $username ?>" class="item">
           <i class="user icon"></i>
-          <div class="content">
-            <div class="header"><?= htmlspecialchars($strname) ?></div>
-          </div>
-        </div>
-        <div class="item">
+          <?= htmlspecialchars($strname) ?>
+        </a>
+        <a href="/workflow/members/<?= $username ?>/parameters" class="item">
           <i class="cog icon"></i>
-          <div class="content">
-            <div class="header">Mes paramètres</div>
-          </div>
-        </div>
-        <div class="item">
-          <a href="/workflow/dashboard/logout">
-            <i class="power off icon" style="float:left;"></i>
-            <div class="content">
-              <div class="header">Déconnexion</div>
-            </div>
-          </a>
-        </div>
+          Mes paramètres
+        </a>
+        <a href="/workflow/dashboard/logout" class="item">
+          <i class="power off icon"></i>
+          Déconnexion
+        </a>
       </div>
     </div>
+    <?php } ?>
   </div>
 </div>

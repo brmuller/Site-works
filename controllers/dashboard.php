@@ -136,6 +136,7 @@
 
   $strname=ucfirst($_SESSION['firstname']).' '.ucfirst($_SESSION['lastname']);
   $avatar=$_SESSION['avatar'];
+  $username=$_SESSION['username'];
   $teams=$team_manager->getTeams();
   $flows=$flow_manager->getUserFlows();
   $my_tasks=$task_manager->getUserTasksCount();
