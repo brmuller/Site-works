@@ -36,16 +36,12 @@
               </div>
             </div>
             <div class="menu transition hidden" style="right:0;left:auto;">
-              <div class="item">
-                <a href="/workflow/members/<?= $username ?>" class="ui blue basic button">
-                  <i class="user icon"></i><?= htmlspecialchars($strname) ?>
-                </a>
-              </div>
-              <div class="item">
-                <a href="/workflow/members/<?= $username ?>/parameters" class="ui blue basic button">
-                  <i class="cog icon"></i>Mes paramètres
-                </a>
-              </div>
+              <a href="/workflow/members/<?= $username ?>" class="item">
+                <i class="user icon"></i><?= htmlspecialchars($strname) ?>
+              </a>
+              <a href="/workflow/members/<?= $username ?>/parameters" class="item">
+                <i class="cog icon"></i>Mes paramètres
+              </a>
               <div class="item">
                 <a href="/workflow/dashboard/logout" class="ui blue basic button">Déconnexion</a>
               </div>

@@ -8,6 +8,11 @@
 		display: none !important;
   }
 
+	.error-image{
+		width: auto;
+		max-width: 400px!important;
+	}
+
 	.medium-screen-show{
 		display: block !important;
 	}
@@ -36,6 +41,7 @@
 		padding-right: 0;
 	}
 
+
 	#header .grid-wrapper{
 		margin-left: 1rem;
 		margin-right: 1rem;
@@ -62,6 +68,20 @@
 		/*height:66% !important;*/
 	}
 }
+
+
+.error-image{
+	width: auto;
+	max-width: 500px;
+}
+
+.vertical-align-container{
+	height: 80vh;
+	display: flex!important;
+	align-items: center!important;
+}
+
+
 
 .menu-header{
 	font-weight:700;

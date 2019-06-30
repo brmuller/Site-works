@@ -46,16 +46,16 @@
         }elseif($url[2]=='parameters'){
           $section='parameters';
         }else{
-          require('views/pagenotfound.php');
+          require('controllers/notfound.php');
           exit;
         }
       }
     }else{
-      require('views/pagenotfound.php');
+      require('controllers/notfound.php');
       exit;
     }
   }else{
-    require('views/pagenotfound.php');
+    require('controllers/notfound.php');
     exit;
   }
 

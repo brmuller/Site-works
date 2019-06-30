@@ -27,7 +27,7 @@
 				if (in_array($page,$controllers)){
 					$controller=$page;
 				}else{
-					$controller='pagenotfound';
+					$controller='notfound';
 				}
 			}else{
 				$controller="dashboard";
