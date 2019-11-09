@@ -22,8 +22,8 @@
               <div class="item">
                 <img class="ui avatar image" src="/workflow/static/avatar/<?= $team_members[$i]['avatar'] ?>.jpg">
                 <div class="content">
-                  <a class="header"><?= htmlspecialchars($team_members[$i]['fullname']) ?></a>
-                  <div class="description">Depuis le <?= $team_members[$i]['join_date'] ?></div>
+                  <a href="/workflow/members/<?= htmlspecialchars($team_members[$i]['username']) ?>" class="header"><?= htmlspecialchars($team_members[$i]['fullname']) ?></a>
+                  <div class="description">Depuis le <?= htmlspecialchars($team_members[$i]['join_date']) ?></div>
                 </div>
               </div>
           <?php  } ?>

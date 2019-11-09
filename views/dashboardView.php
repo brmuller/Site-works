@@ -211,7 +211,7 @@
                 <span class="date"><?= $events_list[$i]['creation_date'] ?></span>
               </div>
               <div class="text">
-                <a class="author"><?= htmlspecialchars($events_list[$i]['fullname']) ?></a>
+                <a href="/workflow/members/<?= htmlspecialchars($events_list[$i]['username']) ?>" class="author"><?= htmlspecialchars($events_list[$i]['fullname']) ?></a>
                 <?= htmlspecialchars($events_list[$i]['message']) ?>
                 <?php if($events_list[$i]['event_type'] != 'team_join'){
                   echo '<a href="/workflow/dashboard/updatetask/'.$events_list[$i]['affected_object_ref'].'">'.$events_list[$i]['affected_object_ref'].'</a>';

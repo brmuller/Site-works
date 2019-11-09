@@ -25,8 +25,23 @@
 
 
 
-  //handle POSTS on page
-  if (isset($_POST['create-task-team'])){$task_manager->createTask();}
+  //****************************    handle POSTS on page  ********************************
+
+  //New task creation
+  if (isset($_POST['create-task-team'])){
+    $data=array(
+      "team" => $_POST['create-task-team'],
+      "flow" => $_POST['create-task-flow'],
+      "title" => $_POST['create-task-title'],
+      "priority" => $_POST['create-task-priority'],
+      "description" => $_POST['create-task-description'],
+      "assignee" => $_POST['create-task-assignee'],
+      "creator" => $_SESSION['id'],
+      "last_modifier" => $_SESSION['id'],
+      "target_delivery_date" => $_POST['create-task-target']
+    );
+    $task_manager->createTask();
+  }
   if (isset($_POST['team-name'])){$team_manager->createTeam();}
   if (isset($_POST['flow-name'])){$flow_manager->createFlow();}
   if (isset($_POST['team-name-join'])){$team_manager->joinTeam();}

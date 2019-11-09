@@ -67,7 +67,7 @@ class historyManager extends Manager
     //get list of events for the team
     $events_list=array();
 
-    $str_query='SELECT event_type, affected_object_ref, creation_date, fullname, avatar FROM history, user
+    $str_query='SELECT event_type, affected_object_ref, creation_date, fullname, avatar, username FROM history, user
       WHERE history.user_id=user.id AND team_id=?
       ORDER BY creation_date DESC'. ($max_events !="" ? ' limit '. $max_events : '');
 
@@ -82,6 +82,7 @@ class historyManager extends Manager
           "creation_date" => $row['creation_date'],
           "fullname" => $row['fullname'],
           "avatar" => $row['avatar'],
+          "username" => $row['username'],
           "message" => $this->getEventMessage($row['event_type']),
           "long_date"=> $this->getFullFrenchDate($row['creation_date'])
         );

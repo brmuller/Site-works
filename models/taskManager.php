@@ -151,40 +151,28 @@ class taskManager extends Manager
 
 
   //insert a new task in DB
-  public function createTask(){
+  public function createTask(Task $task){
     //date_default_timezone_set('Europe/Paris');
     $bdd = $this->connectDB();
-		//faire les contrôles de saisie en JS
-    $team=htmlspecialchars($_POST['create-task-team']);
-    $flow=htmlspecialchars($_POST['create-task-flow']);
-    $title=htmlspecialchars($_POST['create-task-title']);
-    $priority=htmlspecialchars($_POST['create-task-priority']);
-    $description=htmlspecialchars($_POST['create-task-description']);
-    if (isset($_POST['create-task-assignee'])){
-      $assignee=htmlspecialchars($_POST['create-task-assignee']);
-    }else{
-      $assignee='';
-    }
-
-    //get task status
-    $req=$bdd->prepare('SELECT status.id AS status_id FROM status, flow WHERE flow.id=status.id_flow AND status.position=0 AND flow.id= ?');
-    $req->execute(array($flow));
-
-    if ($req->rowCount()){
-      $row = $req->fetch();
-      $status=$row['status_id'];
-    }
-
-    $creator=$_SESSION['id'];
-    $last_modifier=$_SESSION['id'];
-    $creation_date=date("Y-m-d H:i:s");
-    $last_modif_date=date("Y-m-d H:i:s");
-    $target_date=$_POST['create-task-target'];
-
 
     //insert record in table task
 		$inserttask=$bdd->prepare('INSERT INTO task(title,description,creator,creation_date,assignee,last_modifier,last_modification_date,target_delivery_date,team,flow,status,priority) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)');
-		$inserttask->execute(array($title,$description,$creator,$creation_date,$assignee,$last_modifier,$last_modif_date,$target_date,$team,$flow,$status,$priority));
+		$inserttask->execute(
+      array(
+      $task->title(),
+      $task->description(),
+      $task->creator(),
+      $task->creation_date(),
+      $task->assignee(),
+      $task->last_modifier(),
+      $task->last_modif_date(),
+      $task->target_date(),
+      $task->team(),
+      $task->flow(),
+      $task->status(),
+      $task->priority()
+      )
+    );
 
     //update history
     $history_manager=new historyManager();

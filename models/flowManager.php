@@ -158,6 +158,26 @@ class flowManager extends Manager
 
 
 
+  //get first status of related flow
+  public function getFirstStatus($flow){
+    $bdd = $this->connectDB();
+    $status="";
+
+    $req=$bdd->prepare('SELECT status.id AS status_id FROM status, flow WHERE flow.id=status.id_flow AND status.position=0 AND flow.id= ?');
+    $req->execute(array($flow));
+
+    if ($req->rowCount()){
+      $row = $req->fetch();
+      $status=$row['status_id'];
+    }
+
+    $bdd=null;
+    return $status;
+  }
+
+
+
+
   //get list of flows in the team
   public function getTeamFlows($team_id){
 

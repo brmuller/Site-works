@@ -150,7 +150,7 @@ class teamManager extends Manager
 
     //get list of users
     $bdd = $this->connectDB();
-    $req=$bdd->prepare('SELECT user.id AS user_id, user.fullname AS user_fullname, avatar, join_date FROM user,user_team WHERE user.id=user_team.id_user AND user_team.id_team= ?');
+    $req=$bdd->prepare('SELECT user.id AS user_id, user.fullname AS user_fullname, avatar, join_date,username FROM user,user_team WHERE user.id=user_team.id_user AND user_team.id_team= ?');
 
     $users=array();
     $req->execute(array($team_id));
@@ -160,6 +160,7 @@ class teamManager extends Manager
           "id" => $row['user_id'],
           "fullname" => $row['user_fullname'],
           "avatar" => $row['avatar'],
+          "username" => $row['username'],
           "join_date" =>date('d/m/Y',strtotime($row['join_date']))
         );
       }

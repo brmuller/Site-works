@@ -34,9 +34,8 @@
             </div>
           </div>
         </div>
-        <?php if ($member_page==$username){ ?>
         <div class="ten wide column">
-          <h3 class="ui dividing header">A propos de moi</h3>
+          <h3 class="ui dividing header">A propos de <?php if ($member_page==$username){echo 'moi';}else{echo $user_data['firstname'];} ?></h3>
           <?php if (isset($section) && $section=='edit'){ ?>
             <form id="form-edit-user-data" action="/workflow/members/<?= htmlspecialchars($member_page) ?>", method="POST">
               <h4 class="ui header" style="margin-bottom:3px;">Prénom</h4>
@@ -76,10 +75,11 @@
             <p><?= htmlspecialchars($user_data['birthdate']) ?></p>
             <h4 class="ui header" style="margin-bottom:3px;">Pays:</h4>
             <p><?= htmlspecialchars($user_data['country']) ?></p>
-            <a href="/workflow/members/<?= $username ?>/edit" class="ui button" style="margin-top:20px;"><i class="icon edit"></i>Modifier</a>
+            <?php if ($member_page==$username){ ?>
+              <a href="/workflow/members/<?= $username ?>/edit" class="ui button" style="margin-top:20px;"><i class="icon edit"></i>Modifier</a>
+            <?php } ?>
           <?php } ?>
         </div>
-        <?php } ?>
       </div>
     </div>
   <?php }else{ ?>

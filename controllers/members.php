@@ -26,6 +26,7 @@
   if (isset($_POST['modify-team-name'])){$team_manager->updateTeam();}
   if (isset($_POST['modify-flow-name'])){$flow_manager->updateFlow();}
 
+  $username=$_SESSION['username'];
 
   //handle GETS on page
   if (isset($type)){
@@ -39,10 +40,15 @@
       $teams_count=count($team_manager->getTeams($user_id));
       if (isset($url[2])){
         if ($url[2]=='edit'){
-          //get list of countries for dropdown
-          $str_json_file=file_get_contents("static/json/countries.json"); //get contents of JSON api objects file
-          $countries_list=json_decode($str_json_file,true);
-          $section='edit';
+          if ($member_page==$username){
+            //get list of countries for dropdown
+            $str_json_file=file_get_contents("static/json/countries.json"); //get contents of JSON api objects file
+            $countries_list=json_decode($str_json_file,true);
+            $section='edit';
+          }else{
+            require('controllers/notfound.php');
+            exit;
+          }
         }elseif($url[2]=='parameters'){
           $section='parameters';
         }else{
@@ -62,7 +68,6 @@
 
   $strname=ucfirst($_SESSION['firstname']).' '.ucfirst($_SESSION['lastname']);
   $avatar=$_SESSION['avatar'];
-  $username=$_SESSION['username'];
 
 
   //define items to include in the page view
