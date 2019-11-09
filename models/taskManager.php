@@ -384,7 +384,7 @@ class taskManager extends Manager
 		$inserttask=$bdd->prepare('UPDATE task SET is_closed=1 WHERE id=?');
 		$inserttask->execute(
       array(
-        $task->id();
+        $task->id()
       )
     );
 

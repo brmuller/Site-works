@@ -69,7 +69,8 @@
           $response_json=array('isDeleted'=>$response);
           break;
       case "close_task":
-          $response=$task_manager->closeTask($data->task_id);
+          $task=$task_manager->getTask($data->task_id);
+          $response=$task_manager->closeTask($task);
           $response_json=array('isClosed'=>$response);
           break;
       case "add_comment":

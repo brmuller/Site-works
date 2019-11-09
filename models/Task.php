@@ -24,9 +24,6 @@ class Task extends Manager
   {
     //initialise the standard attributes with the hydrate function
     $this->hydrate($data);
-
-    //initialise the other attibutes with their default values
-    $this->_is_closed = 0;
   }
 
 
@@ -61,7 +58,7 @@ class Task extends Manager
   public function status() { return $this->_status; }
   public function priority() { return $this->_priority; }
   public function is_closed() { return $this->_is_closed; }
-  
+
 
   public function setId($id){
     $this->_id=$id;
