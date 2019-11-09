@@ -38,14 +38,35 @@
       "assignee" => $_POST['create-task-assignee'],
       "creator" => $_SESSION['id'],
       "last_modifier" => $_SESSION['id'],
+      "target_delivery_date" => $_POST['create-task-target'],
+      "creation_date" => date("Y-m-d H:i:s"),
+      "last_modification_date" => date("Y-m-d H:i:s"),
+      "status" => ""
+    );
+    $task = new Task($data);
+    $task_manager->createTask($task);
+  }
+
+  //Update task
+  if (isset($_POST['modify-task-title'])){
+    $data=array(
+      "status" => $_POST['modify-task-status'],
+      "priority" => $_POST['modify-task-priority'],
+      "title" => $_POST['modify-task-title'],
+      "description" => $_POST['modify-task-description'],
+      "assignee" => $_POST['modify-task-assignee'],
+      "last_modifier" => $_SESSION['id'],
+      "last_modification_date" => date("Y-m-d H:i:s"),
       "target_delivery_date" => $_POST['create-task-target']
     );
-    $task_manager->createTask();
+    $task=$task_manager->getTask($_POST['modify-task-id']);
+    $task->hydrate($data);
+    $task_manager->updateTask($task);
   }
+
   if (isset($_POST['team-name'])){$team_manager->createTeam();}
   if (isset($_POST['flow-name'])){$flow_manager->createFlow();}
   if (isset($_POST['team-name-join'])){$team_manager->joinTeam();}
-  if (isset($_POST['modify-task-title'])){$task_manager->updateTask();}
   if (isset($_POST['modify-team-name'])){$team_manager->updateTeam();}
   if (isset($_POST['modify-flow-name'])){$flow_manager->updateFlow();}
 

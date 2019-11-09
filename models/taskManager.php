@@ -165,8 +165,8 @@ class taskManager extends Manager
       $task->creation_date(),
       $task->assignee(),
       $task->last_modifier(),
-      $task->last_modif_date(),
-      $task->target_date(),
+      $task->last_modification_date(),
+      $task->target_delivery_date(),
       $task->team(),
       $task->flow(),
       $task->status(),
@@ -176,7 +176,7 @@ class taskManager extends Manager
 
     //update history
     $history_manager=new historyManager();
-    $history_manager->addEvent($team,'task_creation',$bdd->lastInsertId());
+    $history_manager->addEvent($task->team(),'task_creation',$bdd->lastInsertId());
 
     $bdd=null;
   }
@@ -185,12 +185,16 @@ class taskManager extends Manager
 
 
   //removes task from DB
-  public function deleteTask($task_id){
+  public function deleteTask(Task $task){
     $bdd = $this->connectDB();
 
     //delete task
     $req=$bdd->prepare('DELETE FROM task WHERE id=?');
-    $req->execute(array($task_id));
+    $req->execute(
+      array(
+        $task->id()
+      )
+    );
 
     $bdd=null;
 
@@ -247,6 +251,27 @@ class taskManager extends Manager
     $bdd=null;
 
     return $task_data;
+
+  }
+
+
+
+
+  //get data attached to task
+  public function getTask($id){
+    $bdd = $this->connectDB();
+    //get team id
+    $req=$bdd->prepare('SELECT * FROM task WHERE id= ?');
+    $req->execute(array($id));
+
+    $data=array();
+    if ($req->rowCount()){
+      $data = $req->fetch();
+    }
+
+    $bdd=null;
+
+    return new Task($data);
 
   }
 
@@ -352,12 +377,16 @@ class taskManager extends Manager
 
 
   //close task
-  public function closeTask($task_id){
+  public function closeTask(Task $task){
     $bdd=$this->connectDB();
 
     //update record in table task
 		$inserttask=$bdd->prepare('UPDATE task SET is_closed=1 WHERE id=?');
-		$inserttask->execute(array($task_id));
+		$inserttask->execute(
+      array(
+        $task->id();
+      )
+    );
 
     $bdd=null;
     return true;
@@ -368,41 +397,29 @@ class taskManager extends Manager
 
 
   //update task data
-  public function updateTask(){
+  public function updateTask(Task $task){
     //date_default_timezone_set('Europe/Paris');
     $bdd = $this->connectDB();
-		//faire les contrôles de saisie en JS
-    $task_id=htmlspecialchars($_POST['modify-task-id']);
-    $status=htmlspecialchars($_POST['modify-task-status']);
-    $priority=htmlspecialchars($_POST['modify-task-priority']);
-    $title=htmlspecialchars($_POST['modify-task-title']);
-    $description=htmlspecialchars($_POST['modify-task-description']);
-    if (isset($_POST['modify-task-assignee'])){
-      $assignee=htmlspecialchars($_POST['modify-task-assignee']);
-    }else{
-      $assignee='';
-    }
-    $last_modifier=$_SESSION['id'];
-    $last_modif_date=date("Y-m-d H:i:s");
-    $target_date=$_POST['create-task-target'];
-
 
     //insert record in table task
 		$inserttask=$bdd->prepare('UPDATE task SET title=?, description=?, assignee=?, last_modifier=?, last_modification_date=?, target_delivery_date=?, status=?, priority=? WHERE id=?');
-		$inserttask->execute(array($title,$description,$assignee,$last_modifier,$last_modif_date,$target_date,$status,$priority,$task_id));
-
-    //retrieve the task team id
-    $req=$bdd->prepare('SELECT team from task WHERE id= ?');
-    $req->execute(array($task_id));
-
-    if ($req->rowCount()){
-      $row = $req->fetch();
-      $team=$row['team'];
-    }
+		$inserttask->execute(
+      array(
+        $task->title(),
+        $task->description(),
+        $task->assignee(),
+        $task->last_modifier(),
+        $task->last_modification_date(),
+        $task->target_delivery_date(),
+        $task->status(),
+        $task->priority(),
+        $task->id()
+      )
+    );
 
     //update history
     $history_manager=new historyManager();
-    $history_manager->addEvent($team,'task_update',$task_id);
+    $history_manager->addEvent($task->team(),'task_update',$task->id());
 
     $bdd=null;
 

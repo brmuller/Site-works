@@ -25,13 +25,7 @@ class Task extends Manager
     //initialise the standard attributes with the hydrate function
     $this->hydrate($data);
 
-    //initialise the status with the first status of the related flow
-    $flow_manager=new flowManager();
-    $this->_status=$flow_manager->getFirstStatus($this->_flow);
-
     //initialise the other attibutes with their default values
-    $this->_creation_date=date("Y-m-d H:i:s");
-    $this->_last_modification_date=date("Y-m-d H:i:s");
     $this->_is_closed = 0;
   }
 
@@ -51,7 +45,7 @@ class Task extends Manager
       }
     }
   }
-  
+
 
   public function id() { return $this->_id; }
   public function title() { return $this->_title; }
@@ -67,7 +61,11 @@ class Task extends Manager
   public function status() { return $this->_status; }
   public function priority() { return $this->_priority; }
   public function is_closed() { return $this->_is_closed; }
+  
 
+  public function setId($id){
+    $this->_id=$id;
+  }
 
   public function setTitle($title){
     $this->_title=$title;
@@ -81,12 +79,16 @@ class Task extends Manager
     $this->_creator=$creator;
   }
 
-  public function setAssignee($assignee){
-    if (isset($assignee)){
-      $this->_assignee=$assignee;
+  public function setCreation_date($creation_date){
+    if ($creation_date==""){
+      $this->_creation_date=date("Y-m-d H:i:s");
     }else{
-      $this->_assignee="";
+      $this->_creation_date=$creation_date;
     }
+  }
+
+  public function setAssignee($assignee){
+    $this->_assignee=$assignee;
   }
 
   public function setLast_modifier($last_modifier){
@@ -98,20 +100,34 @@ class Task extends Manager
   }
 
   public function setFlow($flow){
-    $this->_team=$team;
+    $this->_flow=$flow;
+  }
+
+  public function setLast_modification_date($last_modification_date){
+    if ($last_modification_date==""){
+      $this->_last_modification_date=date("Y-m-d H:i:s");
+    }else{
+      $this->_last_modification_date=$last_modification_date;
+    }
   }
 
   public function setTarget_delivery_date($target_delivery_date){
-    $this->$_target_delivery_date=$target_delivery_date;
+    $this->_target_delivery_date=$target_delivery_date;
   }
 
   public function setStatus($status){
-    //first check if the status exists and is allowed
-    $this->_status=$status;
+    if (!isset($status) || $status==""){
+      //initialise the status with the first status of the related flow
+      $flow_manager=new flowManager();
+      $this->_status=$flow_manager->getFirstStatus($this->_flow);
+    }else{
+      $this->_status=$status;
+    }
   }
 
   public function setPriority($priority){
-    if ((!is_int($priority)) || $priority<0 || $priority>3){
+    $priority=(int) $priority;
+    if ($priority<0 || $priority>3){
       trigger_error("Priority doit être compris entre 0 et 3.", E_USER_WARNING);
       return;
     }
@@ -119,6 +135,7 @@ class Task extends Manager
   }
 
   public function setIs_closed($is_closed){
+    $is_closed=(int) $is_closed;
     if ($is_closed!==0 && $is_closed!==1){
       trigger_error("Is_closed doit être 0 ou 1.", E_USER_WARNING);
       return;
